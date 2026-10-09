@@ -34,7 +34,7 @@
   /* ---------- grain + curseur + rideau ---------- */
   document.body.insertAdjacentHTML("beforeend", `
     <div class="grain" aria-hidden="true"></div>
-    <div class="curtain" aria-hidden="true"><span class="curtain__label"></span></div>
+    <div class="curtain" aria-hidden="true"><div class="curtain__sheet torn-both tex"><div class="curtain__inner"><div class="stamp stamp--ring" data-stamp="Dossier · Archive 24—26 · Anaïs ·"></div><span class="curtain__label"></span></div></div></div>
     <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__label"></div></div>
     <div class="toast" role="status" aria-live="polite"></div>
     <div class="lb" role="dialog" aria-modal="true" aria-label="Visionneuse">
@@ -42,6 +42,53 @@
       <div class="lb__stage"></div>
       <div class="lb__bot"><span class="mono lb__cap"></span><div class="lb__nav"><button type="button" data-lb="prev">← Préc.</button><button type="button" data-lb="next">Suiv. →</button></div></div>
     </div>`);
+
+  /* ---------- tampons (logo encré) ---------- */
+  let stampId = 0;
+  App.buildStamps = (scope = document) => {
+    App.$$("[data-stamp]", scope).forEach((el) => {
+      if (el.dataset.built) return;
+      el.dataset.built = "1";
+      const id = "stp" + stampId++;
+      const txt = App.esc(el.dataset.stamp);
+      el.innerHTML = `<svg class="ring inked" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" stroke-width="2.6"/><circle cx="50" cy="50" r="43.5" stroke-width=".8"/></svg>`
+        + `<svg class="stamp__txt inked" viewBox="0 0 100 100"><defs><path id="${id}" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs><text><textPath href="#${id}">${txt} ${txt}</textPath></text></svg>`
+        + `<svg class="logo inked" viewBox="0 0 155.05 108.06"><use href="#logo"/></svg>`;
+    });
+  };
+  App.buildStamps();
+  // le coup de tampon : tombe, écrase, rebondit légèrement
+  App.stampIn = (el, opts = {}) => {
+    if (!el) return;
+    if (!hasGsap || reduced) { el.style.opacity = 1; return; }
+    const tl = gsap.timeline({ paused: !!opts.trigger, delay: opts.delay || 0 });
+    tl.fromTo(el, { scale: 2.6, opacity: 0, rotation: -25 }, { scale: 1, opacity: opts.opacity || 0.92, rotation: 0, duration: 0.42, ease: "power4.in" })
+      .to(el, { scale: 1.06, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out" });
+    if (opts.shake) tl.fromTo(opts.shake, { x: -3 }, { x: 0, duration: 0.35, ease: "elastic.out(1, 0.3)" }, 0.42);
+    if (opts.trigger) ScrollTrigger.create({ trigger: opts.trigger, start: opts.start || "top 75%", once: true, onEnter: () => tl.play() });
+    return tl;
+  };
+
+  /* ---------- texte brouillé (étiquettes mono) ---------- */
+  App.scramble = (el, dur = 0.9) => {
+    const final = el.textContent, chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#*/—";
+    const o = { p: 0 };
+    return gsap.to(o, { p: 1, duration: dur, ease: "none", onUpdate: () => {
+      const n = Math.floor(o.p * final.length);
+      el.textContent = final.slice(0, n) + Array.from(final.slice(n)).map((c) => (c === " " ? " " : chars[(Math.random() * chars.length) | 0])).join("");
+    }, onComplete: () => (el.textContent = final) });
+  };
+
+  /* ---------- boutons aimantés ---------- */
+  if (fine && !reduced && hasGsap) {
+    App.$$("[data-magnet]").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * 0.35, y: (e.clientY - r.top - r.height / 2) * 0.35, rotation: (e.clientX - r.left - r.width / 2) * 0.04, duration: 0.6, ease: "power3.out" });
+      });
+      el.addEventListener("pointerleave", () => gsap.to(el, { x: 0, y: 0, rotation: 0, duration: 0.9, ease: "elastic.out(1, 0.35)" }));
+    });
+  }
 
   /* ---------- scroll fluide ---------- */
   if (!reduced && typeof window.Lenis !== "undefined") {
@@ -62,7 +109,11 @@
       const el = document.querySelector(initialHash);
       if (!el) return;
       window.ScrollTrigger && ScrollTrigger.refresh();
-      const y = el.getBoundingClientRect().top + window.scrollY;
+      let y = el.getBoundingClientRect().top + window.scrollY;
+      if (getComputedStyle(el).position === "sticky") { // feuille empilée : position « naturelle »
+        const sibs = Array.from(el.parentElement.children);
+        y = el.parentElement.getBoundingClientRect().top + window.scrollY + sibs.indexOf(el) * el.offsetHeight;
+      }
       if (App.lenis) { App.lenis.resize && App.lenis.resize(); App.lenis.scrollTo(y, { immediate: true, force: true }); }
       else window.scrollTo(0, y);
       window.ScrollTrigger && ScrollTrigger.update();
@@ -107,6 +158,10 @@
     clock.textContent = `Paris, FR — ${t}`;
   };
   tick(); setInterval(tick, 1000);
+  App.$$("[data-today-inline]").forEach((el) => {
+    const d = new Date();
+    el.textContent = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+  });
   App.$$("[data-today]").forEach((el) => {
     const d = new Date();
     el.innerHTML = `${d.getFullYear()}<br>${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
@@ -159,17 +214,18 @@
     App.scrollTo(id);
   });
 
-  /* ---------- transitions de page (rideau rouge) ---------- */
-  const curtain = App.$(".curtain"), cLabel = App.$(".curtain__label");
+  /* ---------- transitions de page (feuille déchirée) ---------- */
+  const curtain = App.$(".curtain"), cLabel = App.$(".curtain__label"), cStamp = App.$(".curtain .stamp");
+  if (hasGsap) gsap.set(curtain, { y: 0, yPercent: 110 }); // GSAP pilote seul le transform
   App.go = (href, label) => {
     if (!hasGsap || reduced) { location.href = href; return; }
     cLabel.textContent = label || "";
-    curtain.style.transformOrigin = "bottom";
-    gsap.timeline({ onComplete: () => (location.href = href) })
-      .to(curtain, { scaleY: 1, duration: 0.75, ease: "expo.inOut" })
-      .to(cLabel, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "-=0.25")
-      .set({}, {}, "+=0.12");
     App.store.set("curtain", label || "·");
+    gsap.timeline({ onComplete: () => (location.href = href) })
+      .fromTo(curtain, { yPercent: 110, rotation: 3 }, { yPercent: 0, rotation: 0, duration: 0.8, ease: "expo.inOut" })
+      .fromTo(cLabel, { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.45, ease: "expo.out" }, "-=0.25")
+      .add(App.stampIn(cStamp, {}), "-=0.35")
+      .set({}, {}, "+=0.15");
   };
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a[href]");
@@ -179,24 +235,23 @@
     e.preventDefault();
     App.go(href, a.dataset.label || "");
   });
-  // entrée de page : le rideau se lève si on arrive d'une transition
+  // entrée de page : la feuille s'envole vers le haut
   App.revealPage = (cb) => {
     const from = App.store.get("curtain");
     if (from && hasGsap && !reduced) {
       App.store.set("curtain", "");
       cLabel.textContent = from === "·" ? "" : from;
-      gsap.set(curtain, { scaleY: 1, transformOrigin: "top" });
-      gsap.set(cLabel, { opacity: 1 });
-      gsap.timeline({ delay: 0.15 })
-        .to(cLabel, { opacity: 0, duration: 0.3 })
-        .to(curtain, { scaleY: 0, duration: 0.9, ease: "expo.inOut" }, "-=0.1")
-        .add(() => cb && cb(), "-=0.55");
+      gsap.set(curtain, { y: 0, yPercent: 0, rotation: 0 });
+      gsap.set(cStamp, { opacity: 0.92, scale: 1 });
+      gsap.timeline({ delay: 0.1 })
+        .to(curtain, { yPercent: -115, rotation: -4, duration: 1, ease: "expo.inOut" })
+        .add(() => cb && cb(), "-=0.6");
       return true;
     }
     cb && cb();
     return false;
   };
-  addEventListener("pageshow", (e) => { if (e.persisted && hasGsap) gsap.set(curtain, { scaleY: 0 }); });
+  addEventListener("pageshow", (e) => { if (e.persisted && hasGsap) gsap.set(curtain, { y: 0, yPercent: 110 }); });
 
   /* ---------- toast + copier ---------- */
   const toast = App.$(".toast");

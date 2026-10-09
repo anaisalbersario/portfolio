@@ -3,48 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anaïs Albersario — Direction artistique & communication</title>
-  <meta name="description" content="Portfolio d'Anaïs Albersario, étudiante à l'ESD Paris. Direction artistique, social media, affiches et édition. En recherche d'alternance dès septembre / octobre 2026.">
-  <meta property="og:title" content="Anaïs Albersario — Portfolio 2026">
-  <meta property="og:description" content="Direction artistique & communication. En recherche d'alternance dès sept./oct. 2026.">
+  <title>Anaïs Albersario — Direction artistique & com</title>
+  <meta name="description" content="Anaïs Albersario, étudiante à l'ESD Paris. Shootings, feeds, affiches, magazines : des images qu'on garde. En recherche d'alternance en DA ou en communication dès sept./oct. 2026.">
+  <meta property="og:title" content="Anaïs Albersario — Archive 24—26">
+  <meta property="og:description" content="Direction artistique & communication. Dispo en alternance dès sept./oct. 2026.">
   <meta property="og:image" content="media/magazine/couverture.jpg">
   <meta name="theme-color" content="#e8261c">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e8261c'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial Black,Arial' font-weight='900' font-size='40' fill='%23121010'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&family=Geist+Mono:wght@400;500&family=Reenie+Beanie&display=swap" rel="stylesheet">
-  <link rel="preload" href="fonts/Printvetica.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="fonts/FOSSSERIF-Regular.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="is-loading">
 
+  <!-- symboles partagés : logo, encre de tampon, trombone -->
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="logo" viewBox="0 0 155.05 108.06"><path d="M11.26,23.35c-2.11-1.58-1.36-5.39-.35-7.35,1.4-2.71,4.2-4.53,7.05-5.4,6.31-1.93,12.51.97,15.35,6.85,6.79,14.04-2.48,30.79-5.79,44.48-3.39,14.01-3.15,30.72,8.95,40.58,11.28,9.19,25.64,6.56,34.2-4.78,17.91-23.73,6.42-63.98,35.6-80.21,12.08-6.72,28.81-4.14,35.53,8.8,6.27,12.07,3.49,28.8-2.3,40.55-6.77,13.72-20.88,22.61-35.42,13.83-15.32-9.24-15.86-29.33-8.03-43.73,3.08-5.66-5.56-10.71-8.63-5.05-8.19,15.06-9.43,34.68,1.68,48.68,9.8,12.34,27.04,17.56,41.43,10.3s21.48-23.65,23.75-38.49c2.44-16.02-.48-34.35-15.41-43.47s-32.9-5.34-45.39,5.46c-14.1,12.19-17.49,30.53-20.73,47.94-2.17,11.66-9.5,46.08-28.44,33.59s-3.47-40.13-.09-56.19S43.36,1.07,23.12.03C15.16-.38,6.75,3.48,2.6,10.42-1.78,17.74-.66,26.84,6.21,31.98c5.15,3.86,10.15-4.82,5.05-8.63h0Z"/><path d="M17.82,64.81c-7.38-14.56,16.58-14.75,24.25-17.94,11.41-4.74,19.66-14.57,25.25-25.31,2.97-5.7-5.66-10.76-8.63-5.05-3.48,6.7-7.91,13.15-14.12,17.61s-12.65,5.11-19.72,6.66c-6.36,1.4-12.41,4.38-15.66,10.29-3.27,5.94-3.01,12.84,0,18.78s11.54.69,8.63-5.05h0Z"/><path d="M20.38,95.09c-.47-15.12,23.35-16.64,33-22.36,10.93-6.49,18.54-18,20.25-30.57.86-6.29-8.78-9.02-9.64-2.66-.94,6.9-3.57,13.32-8.28,18.52-5.12,5.66-11.55,8.38-18.67,10.73-12.35,4.08-27.12,11.03-26.65,26.34.2,6.42,10.2,6.45,10,0h0Z"/></symbol>
+    <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.55" result="holes"/>
+      <feComposite in="SourceGraphic" in2="holes" operator="in" result="eroded"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="2" result="w"/>
+      <feDisplacementMap in="eroded" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="paperclip" viewBox="0 0 30 80"><path d="M9 22 V60 a6 6 0 0 0 12 0 V12 a9 9 0 0 0 -18 0 V62 a12 12 0 0 0 24 0 V26"/></symbol>
+  </svg>
+
   <!-- LOADER -->
   <div class="loader" aria-hidden="true">
-    <div class="loader__top mono"><span>Archive personnelle</span><span>Dossier N° AA—2026</span></div>
-    <div class="loader__count">000</div>
+    <div class="loader__top mono"><span>Archive personnelle</span><span>Dossier n° AA—2026</span></div>
+    <svg class="loader__logo" viewBox="-2 -2 159 112"><path d="M11.26,23.35c-2.11-1.58-1.36-5.39-.35-7.35,1.4-2.71,4.2-4.53,7.05-5.4,6.31-1.93,12.51.97,15.35,6.85,6.79,14.04-2.48,30.79-5.79,44.48-3.39,14.01-3.15,30.72,8.95,40.58,11.28,9.19,25.64,6.56,34.2-4.78,17.91-23.73,6.42-63.98,35.6-80.21,12.08-6.72,28.81-4.14,35.53,8.8,6.27,12.07,3.49,28.8-2.3,40.55-6.77,13.72-20.88,22.61-35.42,13.83-15.32-9.24-15.86-29.33-8.03-43.73,3.08-5.66-5.56-10.71-8.63-5.05-8.19,15.06-9.43,34.68,1.68,48.68,9.8,12.34,27.04,17.56,41.43,10.3s21.48-23.65,23.75-38.49c2.44-16.02-.48-34.35-15.41-43.47s-32.9-5.34-45.39,5.46c-14.1,12.19-17.49,30.53-20.73,47.94-2.17,11.66-9.5,46.08-28.44,33.59s-3.47-40.13-.09-56.19S43.36,1.07,23.12.03C15.16-.38,6.75,3.48,2.6,10.42-1.78,17.74-.66,26.84,6.21,31.98c5.15,3.86,10.15-4.82,5.05-8.63h0Z"/><path d="M17.82,64.81c-7.38-14.56,16.58-14.75,24.25-17.94,11.41-4.74,19.66-14.57,25.25-25.31,2.97-5.7-5.66-10.76-8.63-5.05-3.48,6.7-7.91,13.15-14.12,17.61s-12.65,5.11-19.72,6.66c-6.36,1.4-12.41,4.38-15.66,10.29-3.27,5.94-3.01,12.84,0,18.78s11.54.69,8.63-5.05h0Z"/><path d="M20.38,95.09c-.47-15.12,23.35-16.64,33-22.36,10.93-6.49,18.54-18,20.25-30.57.86-6.29-8.78-9.02-9.64-2.66-.94,6.9-3.57,13.32-8.28,18.52-5.12,5.66-11.55,8.38-18.67,10.73-12.35,4.08-27.12,11.03-26.65,26.34.2,6.42,10.2,6.45,10,0h0Z"/></svg>
     <div>
-      <div class="loader__bottom mono"><span>Anaïs Albersario</span><span>Chargement des pièces…</span></div>
+      <div class="loader__bottom"><span class="mono">On découpe, on colle, on imprime…</span><span class="loader__count">000</span></div>
       <div class="loader__bar"><i></i></div>
     </div>
   </div>
 
   <!-- HEADER -->
   <header class="header" data-tone="red">
-    <a href="#top" class="header__brand" aria-label="Retour en haut">Anaïs A.<small>Portfolio ©2026</small></a>
+    <a href="#top" class="header__brand" aria-label="Retour en haut"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg><span>Anaïs A.<small>Archive 24—26</small></span></a>
     <span class="header__clock mono" data-clock>Paris, FR</span>
     <nav class="header__nav mono" aria-label="Navigation principale">
-      <a href="#travaux"><span class="roll"><span>Travaux</span><span aria-hidden="true">Travaux</span></span></a>
-      <a href="#a-propos"><span class="roll"><span>À propos</span><span aria-hidden="true">À propos</span></span></a>
-      <a href="#contact"><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
-      <a href="#contact" class="status"><i></i>Alternance 2026</a>
+      <a href="#sommaire"><span class="roll"><span>Dossiers</span><span aria-hidden="true">Dossiers</span></span></a>
+      <a href="#a-propos"><span class="roll"><span>Qui suis-je</span><span aria-hidden="true">Qui suis-je</span></span></a>
+      <a href="#contact" class="status"><i></i>Dispo en alternance</a>
       <button class="menu-btn mono" type="button" aria-expanded="false" aria-controls="mnav"><span>Menu</span><b></b></button>
     </nav>
   </header>
   <nav class="mnav" id="mnav" aria-label="Menu mobile">
     <div>
-      <a class="display" href="#travaux">Travaux</a>
-      <a class="display" href="#a-propos">À propos</a>
-      <a class="display" href="#contact">Contact</a>
+      <a class="t" href="#sommaire">Dossiers</a>
+      <a class="t" href="#sur-le-fil">Affiches</a>
+      <a class="t" href="#a-propos">Qui suis-je</a>
+      <a class="t" href="#contact">Contact</a>
     </div>
     <div class="mono">anaisalbersario22@gmail.com<br>@anaisalbersario</div>
   </nav>
@@ -60,169 +73,116 @@
           <div class="hero__lead">Portfolio©<br>Archive 24—26</div>
         </div>
         <div class="hero__row2">
-          <p class="hero__blk">Étudiante en 3<sup>e</sup> année<br>de Bachelor Chef de Projet<br>Digital à l'ESD — Paris.<br>Regard affirmé, rigueur<br>et goût du détail.</p>
-          <span class="hero__num">✶</span>
-          <p class="hero__blk" style="position:relative">
+          <p class="hero__blk">Étudiante en 3<sup>e</sup> année<br>à l'ESD, Paris.<br>Je découpe, je cadre,<br>je colle — et je publie.</p>
+          <span class="hero__num"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg></span>
+          <p class="hero__blk">
             Je cherche une
             <span class="hero__seal">alternance
               <svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M28 14 C78 -2 176 2 192 32 C206 62 122 82 58 74 C10 68 -6 40 18 22 C34 10 66 4 98 8"/></svg>
             </span><br>
-            en direction artistique<br>ou communication,<br>dès sept. / oct. 2026.
+            en direction artistique<br>ou en com,<br>dès sept. / oct. 2026.
           </p>
-          <p class="hero__blk" style="text-align:right">Shootings, social media,<br>affiches, édition.<br>Des images qui<br>racontent une marque.</p>
+          <p class="hero__blk" style="text-align:right">Shootings, feeds,<br>affiches, magazines.<br>Des images<br>qu'on garde.</p>
         </div>
       </div>
 
       <div class="hero__stage" id="heroStage">
-        <span class="hero__note" style="left:48%;top:18%">← déplace-moi</span>
+        <span class="hero__note" style="left:46%;top:16%">← attrape un polaroid</span>
       </div>
 
       <div>
         <h1 class="hero__name" id="heroName">
-          <span class="nrow nrow--first" data-split>ANAÏS</span>
-          <span class="nrow nrow--last" data-fit>ALBERSARIO</span>
+          <span class="nrow" data-split>ANAÏS</span>
+          <span class="nrow" data-fit>ALBERSARIO</span>
         </h1>
         <div class="hero__foot mono">
-          <span>01 — 10 projets</span>
+          <span>10 dossiers à ouvrir</span>
           <span class="hero__scroll"><i></i>Défiler</span>
-          <span>Dir. artistique / Communication</span>
+          <span>DA × Communication</span>
         </div>
       </div>
 
+      <canvas class="ink-trail" id="inkTrail" aria-hidden="true"></canvas>
       <div class="polas" id="polas"></div>
     </section>
 
     <!-- BANDES -->
     <div class="bands" aria-hidden="true">
-      <div class="band"><span class="band__stub">AA-2026</span><div class="band__track" data-marquee>
-        <span class="band__item">Disponible en alternance <em>Sept. / Oct. 2026</em> ✶</span>
-        <span class="band__item">Direction artistique <em>& communication</em> ✶</span>
-        <span class="band__item">Social media <em>× print × shooting</em> ✶</span>
+      <div class="band"><span class="band__stub">AA-2026</span><div class="band__track" data-marquee="1">
+        <span class="band__item">Dispo en alternance <i>sept./oct. 2026</i> ✶</span>
+        <span class="band__item">Direction artistique & com ✶</span>
+        <span class="band__item">Je découpe, je cadre, je publie ✶</span>
       </div></div>
-      <div class="band"><span class="band__stub">PARIS</span><div class="band__track" data-marquee>
-        <span class="band__item"><em>Secret guest</em> Anaïs Albersario ✶</span>
-        <span class="band__item"><em>Portfolio</em> 2026 ✶</span>
-        <span class="band__item"><em>Archive</em> personnelle ✶</span>
+      <div class="band"><span class="band__stub">PARIS</span><div class="band__track" data-marquee="-1">
+        <span class="band__item">Imprimé à Paris ✶</span>
+        <span class="band__item"><i>archive</i> 24—26 ✶</span>
+        <span class="band__item">Fait main (et sur Figma) ✶</span>
       </div></div>
     </div>
 
-    <!-- MANIFESTE -->
-    <section class="section manifest" data-tone="dark" aria-label="Manifeste">
-      <div class="manifest__grid">
-        <aside class="manifest__aside">
-          <span class="mono">(01) — Manifeste</span>
-          <span class="hand" style="rotate:-5deg">mon credo ↓</span>
-        </aside>
-        <p class="manifest__text" id="manifest">
-          Je construis des images qui racontent une marque — du <span class="disp">shooting</span> au feed Instagram, de l'<span class="disp">affiche</span> au magazine. J'aime quand une <span class="circ">idée<svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M30 12 C80 -4 182 4 192 34 C202 66 118 80 56 74 C10 68 -6 40 20 22 C36 10 66 4 100 9"/></svg></span> simple devient un <span class="disp">système</span> : une couleur, une typo, un geste qui se répète.
+    <!-- NOTE -->
+    <section class="section manifest" data-tone="dark" aria-label="Note d'intention">
+      <article class="letter tex" id="letter">
+        <svg class="clip" viewBox="0 0 30 80" aria-hidden="true"><use href="#paperclip"/></svg>
+        <div class="letter__head mono"><span>Note n°01</span><span>À l'attention de : vous (oui, vous)</span></div>
+        <p class="letter__text" id="manifest">
+          J'aime les images qu'on <span class="hl">garde.</span> Celles qu'on punaise au mur, qu'on découpe, qu'on screenshot à deux heures du matin. Mon terrain : le <span class="cut cut--ink">shooting</span>, le <span class="cut cut--red">feed</span>, l'<span class="cut cut--yellow">affiche</span> et le <span class="cut cut--blue">magazine</span>. Ma méthode : une <span class="circ">idée<svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M30 12 C80 -4 182 4 192 34 C202 66 118 80 56 74 C10 68 -6 40 20 22 C36 10 66 4 100 9"/></svg></span> claire, cadrée serré, répétée jusqu'à devenir <span class="hl" style="--hl:#f7a8a2">un style.</span>
         </p>
-      </div>
-      <div class="manifest__keys mono">
-        <div><b data-count="4">0</b>mois de stage<br>chez EÏA Spa</div>
-        <div><b data-count="16">0</b>jours de publication<br>planifiés</div>
-        <div><b data-count="10">0</b>projets<br>dans ce portfolio</div>
-        <div><b>FR·EN·TL</b>trois langues<br>parlées</div>
+        <span class="letter__aside" style="left:7%;bottom:5%">(oui, j'imprime tout)</span>
+        <div class="stamp stamp--ring" data-stamp="Anaïs Albersario · Archive 24—26 · Paris ·"></div>
+      </article>
+      <div class="facts">
+        <div class="fact"><span class="tape tape--t"></span><b data-count="4">0</b><span class="mono">mois chez EÏA Spa<br>à faire vivre un feed</span></div>
+        <div class="fact"><span class="tape tape--tr"></span><b data-count="16">0</b><span class="mono">jours de posts<br>planifiés au calendrier</span></div>
+        <div class="fact"><span class="tape tape--tl"></span><b data-count="10">0</b><span class="mono">dossiers ouverts<br>dans ce portfolio</span></div>
+        <div class="fact"><span class="tape tape--t"></span><b data-count="3">0</b><span class="mono">langues : français,<br>anglais, tagalog</span></div>
       </div>
     </section>
 
-    <!-- À LA UNE : EÏA -->
-    <section class="feature" id="eia" data-tone="dark" aria-label="Dossier à la une : EÏA">
-      <div class="feature__pin">
-        <div class="feature__track">
-          <div class="fpanel fpanel--intro">
-            <div class="fpanel__meta mono"><span>(02) — Dossier à la une</span><span>Avril → juillet 2026</span></div>
-            <p class="fpanel__desc">Stage de chargée de communication & assistante DA chez <b>EÏA</b>, spa holistique installé dans des hôtels d'exception. Trois projets, une même voix : poétique, sensorielle, épurée.</p>
-            <span class="stamp" style="right:12%;top:22%"><span>Stage<b>2026</b>Paris</span></span>
-            <h2 class="big">EÏA<sup>Spa ✶ 3 projets →</sup></h2>
-          </div>
-
-          <a class="fpanel fpanel--work" href="projet.html?p=eia-social" data-label="EÏA" data-cursor="Ouvrir">
-            <span class="fpanel__idx">01</span>
-            <div class="fpanel__media">
-              <img src="media/eia/post_02-07-1.jpg" alt="Post Instagram EÏA « L'été laisse des traces »" style="left:0;top:8%;width:52%;rotate:-3deg" loading="lazy">
-              <img src="media/eia/post_02-07-5.jpg" alt="Post Instagram EÏA « Au spa by EÏA de l'Hôtel Hana »" style="left:38%;top:24%;width:50%;rotate:4deg" loading="lazy">
-              <img src="media/eia/story_08-07-2.jpg" alt="Relais presse EÏA" style="left:16%;bottom:0;width:36%;rotate:-1deg" loading="lazy">
-            </div>
-            <div class="fpanel__txt">
-              <span class="mono">Social media · Calendrier éditorial</span>
-              <h3>Trois mois<br>de contenus</h3>
-              <p>Posts, carrousels, stories, Reels et communiqués pour cinq lieux partenaires — avec un calendrier éditorial pensé jour par jour.</p>
-              <span class="fpanel__link mono">Voir le projet →</span>
-            </div>
-          </a>
-
-          <a class="fpanel fpanel--work" href="projet.html?p=eia-nouvelle-da" data-label="Nouvelle DA" data-cursor="Ouvrir">
-            <span class="fpanel__idx">02</span>
-            <div class="fpanel__media">
-              <img src="media/nda/9302.jpg" alt="Shooting EÏA : cliente en peignoir à la réception de l'hôtel" style="left:0;top:0;width:58%;height:96%" loading="lazy">
-              <img src="media/nda/9543.jpg" alt="Shooting EÏA : petit-déjeuner, bol de céréales" style="right:0;top:12%;width:38%;rotate:3deg" loading="lazy">
-              <img src="media/nda/9798.jpg" alt="Shooting EÏA : jambes en l'air sur le lit" style="right:6%;bottom:0;width:30%;rotate:-4deg" loading="lazy">
-            </div>
-            <div class="fpanel__txt">
-              <span class="mono">Direction artistique · Shooting</span>
-              <h3>Nouvelle<br>DA</h3>
-              <p>Le spa sort de la cabine : un séjour en peignoir à travers tout l'hôtel, entre lumière ambrée et humour décalé.</p>
-              <span class="fpanel__link mono">Voir le projet →</span>
-            </div>
-          </a>
-
-          <a class="fpanel fpanel--work" href="projet.html?p=eia-womanizer" data-label="EÏA × Womanizer" data-cursor="Ouvrir">
-            <span class="fpanel__idx">03</span>
-            <div class="fpanel__media">
-              <img src="media/womanizer/p05.jpg" alt="Moodboard Room Service" style="left:0;top:6%;width:92%" loading="lazy">
-              <img src="media/eia/post_03-07-1.jpg" alt="Post EÏA × Womanizer" style="right:0;bottom:2%;width:40%;rotate:4deg" loading="lazy">
-            </div>
-            <div class="fpanel__txt">
-              <span class="mono">Concept · Collaboration de marque</span>
-              <h3>EÏA ×<br>Womanizer</h3>
-              <p>« Room Service » : un objet intime caché sous une cloche d'argent. Suggérer sans jamais être vulgaire.</p>
-              <span class="fpanel__link mono">Voir le projet →</span>
-            </div>
-          </a>
-
-          <div class="fpanel fpanel--end">
-            <a href="#travaux">Tous les<br><span>travaux ↓</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="feature__progress"><i></i></div>
-    </section>
-
-    <!-- INDEX -->
-    <section class="section index" id="travaux" data-tone="dark" aria-label="Index des travaux">
+    <!-- SOMMAIRE -->
+    <section class="section toc" id="sommaire" data-tone="dark" aria-label="Sommaire">
       <div class="section-head">
-        <span class="mono">(03) — Index</span>
-        <h2 class="display">Travaux</h2>
-        <span class="mono">2024 — 2026<br>Survoler / cliquer</span>
+        <span class="mono">(02) — Sommaire</span>
+        <h2 data-lines><span class="line-reveal"><span>Sommaire</span></span></h2>
+        <span class="mono">10 dossiers<br>2024 → 2026</span>
       </div>
-      <div class="filters" id="filters" role="toolbar" aria-label="Filtrer les projets"></div>
-      <div class="list" id="list"></div>
+      <div class="toc__page">
+        <span class="hand toc__aside">choisis ton dossier ↓</span>
+        <ol class="toc__list" id="toc"></ol>
+      </div>
     </section>
-    <div class="preview" id="preview" aria-hidden="true"></div>
+    <div class="toc__preview" id="tocPreview" aria-hidden="true"><div class="imgs"></div><span class="pcap"></span></div>
 
-    <!-- MUR D'AFFICHES -->
-    <section class="section wall" data-tone="light" aria-label="Affiches et édition">
+    <!-- DOSSIERS -->
+    <section class="dossiers" id="dossiers" aria-label="Les dossiers"></section>
+
+    <!-- SUR LE FIL -->
+    <section class="section line" id="sur-le-fil" data-tone="light" aria-label="Affiches et édition">
       <div class="section-head">
         <span class="mono">(04) — Print</span>
-        <h2 class="display">Affiches<br><span class="serif" style="text-transform:none">& édition</span></h2>
-        <span class="mono">Glisser pour parcourir →</span>
+        <h2 data-lines><span class="line-reveal"><span>Sur le fil</span></span></h2>
+        <span class="mono">Affiches & édition,<br>séchées à l'air libre</span>
       </div>
-      <div class="wall__rail" id="rail" data-cursor="Glisser"></div>
-      <div class="wall__hint">
-        <span class="hand">← glisse le mur →</span>
-        <a href="projet.html?p=affiches" class="mono fpanel__link" data-label="Affiches">Toutes les affiches →</a>
+      <div class="line__wrap" id="lineWrap" data-cursor="Glisse">
+        <div class="line__track" id="lineTrack">
+          <svg class="line__rope" id="rope" aria-hidden="true"><path/></svg>
+        </div>
+      </div>
+      <div class="line__hint">
+        <span class="hand">← attrape la corde et tire →</span>
+        <a href="projet.html?p=affiches" class="mono ulink" data-label="Affiches">Toutes les affiches →</a>
       </div>
     </section>
 
-    <!-- À PROPOS -->
-    <section class="section about" id="a-propos" data-tone="dark" aria-label="À propos">
+    <!-- QUI SUIS-JE -->
+    <section class="section about" id="a-propos" data-tone="dark" aria-label="Qui suis-je">
       <div class="section-head">
         <span class="mono">(05) — À propos</span>
-        <h2 class="display">Qui<br><span class="serif" style="text-transform:none">suis-je ?</span></h2>
+        <h2 data-lines><span class="line-reveal"><span>Qui suis-je&nbsp;?</span></span></h2>
         <span class="mono">Fiche d'identité<br>créative</span>
       </div>
 
-      <article class="cert" id="cert">
+      <article class="cert tex" id="cert">
         <div class="cert__head">
           <h3 class="cert__title">Certificat<br>de créativité</h3>
           <div class="mono" style="text-align:right">N° AA—2026—ESD<br>État : disponible<br>Délivré à Paris</div>
@@ -233,10 +193,10 @@
               <div class="field"><span class="mono">1a. Prénom</span><b>Anaïs</b></div>
               <div class="field"><span class="mono">1b. Nom</span><b>Albersario</b></div>
               <div class="field field--full"><span class="mono">2. Poste recherché</span><b>Alternance — Directrice artistique junior / Chargée de communication · dès sept. / oct. 2026</b></div>
-              <div class="field field--full"><span class="mono">3. Profil</span><p>Étudiante en 3<sup>e</sup> année de Bachelor Chef de Projet Digital, passionnée par la création visuelle et les identités de marque. Créative et rigoureuse, avec un regard esthétique affirmé.</p></div>
+              <div class="field field--full"><span class="mono">3. Signes particuliers</span><p>Étudiante en 3<sup>e</sup> année de Bachelor Chef de Projet Digital. Obsédée par les identités de marque, les grilles bien posées et les détails que personne ne remarque (sauf moi). Créative, rigoureuse, regard affirmé.</p></div>
               <div class="field field--full"><span class="mono">4. Parcours</span>
                 <ul class="tl">
-                  <li><span class="mono">Avr.—Juil. 26</span><span><b>EÏA Spa — Stage chargée de communication & assistante DA</b>Stratégie et identité de marque, contenus digital & print, réseaux sociaux.</span></li>
+                  <li><span class="mono">Avr.—Juil. 26</span><span><b>EÏA Spa — Stage chargée de com & assistante DA</b>Stratégie et identité de marque, contenus digital & print, réseaux sociaux.</span></li>
                   <li><span class="mono">Juil. 2025</span><span><b>HelpMe — Stage community manager</b></span></li>
                   <li><span class="mono">2024—2027</span><span><b>ESD — École Supérieure du Digital</b>Bachelor Chef de Projet Digital : UI, UX, création graphique, social media.</span></li>
                   <li><span class="mono">2024</span><span><b>Lycée Joseph Talma — Bac général</b></span></li>
@@ -245,23 +205,24 @@
               <div class="field field--full"><span class="mono">5. Outils maîtrisés</span>
                 <div class="tool-chips"><span>Photoshop</span><span>InDesign</span><span>Illustrator</span><span>Figma</span><span>CapCut</span><span>Canva</span><span>WordPress</span></div>
               </div>
-              <div class="field field--2"><span class="mono">6. Langues</span><p>Français — natale<br>Anglais — B2<br>Tagalog — courant</p></div>
+              <div class="field field--2"><span class="mono">6. Langues</span><p>Français, natale<br>Anglais, B2<br>Tagalog, courant</p></div>
               <div class="field field--2"><span class="mono">7. Qualités</span><p>Polyvalente<br>Curieuse<br>Autonome</p></div>
               <div class="field field--2"><span class="mono">8. Hors écran</span><p>Chant<br>Ukulélé / guitare<br>Création de contenu</p></div>
             </div>
           </div>
           <div class="cert__photo">
-            <figure class="pola" style="rotate:3deg">
+            <figure class="pola">
+              <span class="tape tape--t"></span>
               <img src="media/moi/portrait.jpg" alt="Portrait d'Anaïs Albersario" loading="lazy">
               <figcaption>Anaïs, Paris</figcaption>
             </figure>
-            <span class="stamp" id="stamp"><span>Bon pour<b>alternance</b>2026</span></span>
+            <div class="stamp stamp--ring" id="certStamp" data-stamp="Bon pour alternance · 2026 · Approuvé ·"></div>
           </div>
         </div>
         <div class="cert__foot">
           <span class="mono">Signature du titulaire</span>
           <span class="cert__sign">Anaïs Albersario</span>
-          <a class="mono fpanel__link" href="media/CV_Anais_Albersario.pdf" download>Télécharger le CV (PDF) ↓</a>
+          <a class="mono ulink" href="media/CV_Anais_Albersario.pdf" download>Télécharger le CV (PDF) ↓</a>
         </div>
       </article>
     </section>
@@ -269,51 +230,69 @@
     <!-- CONTACT -->
     <section class="section contact" id="contact" data-tone="light" aria-label="Contact">
       <div class="section-head">
-        <span class="mono" style="color:rgba(250,248,243,.6)">(06) — Contact</span>
-        <span></span>
-        <span class="mono" style="color:rgba(250,248,243,.6)">Réponse sous 24 h</span>
+        <span class="mono" style="color:rgba(251,248,241,.6)">(06) — Contact</span>
+        <h2 data-lines><span class="line-reveal"><span>On se</span></span><span class="line-reveal"><span>rencontre&nbsp;?</span></span></h2>
+        <span class="mono" style="color:rgba(251,248,241,.6)">Réponse sous 24 h<br>(promis)</span>
       </div>
-      <h2 class="contact__title" data-lines>
-        <span class="line-reveal"><span>Travaillons</span></span>
-        <span class="line-reveal"><span><span class="serif">ensemble</span> ✶</span></span>
-      </h2>
-      <div class="contact__grid">
-        <div class="record" data-cursor="Face A">
-          <div class="record__disc"><div class="record__label">AA<br>26</div></div>
-          <div class="sleeve">
-            <div>
-              <div class="r"><span>Anaïs Albersario A Direction art.</span><span>4 02</span></div>
-              <div class="r"><span style="padding-left:9.4em">B Communication</span><span>4 58</span></div>
-            </div>
-            <div>
-              <div>Recorded in Paris 2024——2027</div>
-              <div>At ESD — École Supérieure du Digital</div>
-              <div style="padding-left:4.2em">(C) Portfolio 2026 all rights reserved</div>
-            </div>
-            <div>
-              <div><a href="mailto:anaisalbersario22@gmail.com">anaisalbersario22(a)gmail.com</a></div>
-              <div><a href="https://www.instagram.com/anaisalbersario" target="_blank" rel="noopener">IG (a)anaisalbersario</a></div>
-            </div>
-            <div class="barcode"><span>33 1/3 RPM</span><i></i><span>/26</span></div>
+
+      <div class="form-wrap">
+        <form class="form tex" id="hireForm" novalidate>
+          <span class="form__binder" aria-hidden="true"></span>
+          <div class="form__top"><span data-today-inline>09/10/2026</span><span>AA — 26#01</span></div>
+          <div class="form__head">
+            <svg class="form__logo" viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg>
+            <div>Département des bonnes idées<br><b>Formulaire d'embauche</b></div>
           </div>
-        </div>
+          <h3 class="form__title">Vous cherchez<br>une alternante ?</h3>
+
+          <fieldset>
+            <legend>1. Vous êtes :</legend>
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="who" value="une agence"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une agence</label>
+              <label class="check"><input type="checkbox" name="who" value="une marque"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une marque</label>
+              <label class="check"><input type="checkbox" name="who" value="un studio"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Un studio</label>
+              <label class="check"><input type="checkbox" name="who" value="autre chose de génial"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Autre (génial)</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>2. Vous cherchez :</legend>
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="what" value="une alternante en direction artistique"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une alternante en DA</label>
+              <label class="check"><input type="checkbox" name="what" value="une alternante en communication"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une alternante en com</label>
+              <label class="check"><input type="checkbox" name="what" value="les deux (bonne réponse)"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Les deux (bonne réponse)</label>
+            </div>
+          </fieldset>
+          <label class="field-line"><span>3. Votre nom & entreprise :</span><input type="text" name="name" autocomplete="off" placeholder="écrivez ici…"></label>
+
+          <div class="form__foot">
+            <p class="form__note">Nota : merci de ne remplir ce formulaire qu'une fois.<br>Les fautes de goût ne sont pas acceptées.</p>
+            <button type="submit" class="send" data-cursor="Envoyer">Envoyer le formulaire →</button>
+          </div>
+          <div class="stamp stamp--ring stamp--recu" id="recu" data-stamp="Reçu · Merci · À très vite ·"></div>
+          <p class="mono form__copy">Ce formulaire ouvre votre messagerie. Rien n'est envoyé sans vous.</p>
+        </form>
+
         <div>
-          <div class="contact__links">
+          <div class="direct">
             <button type="button" data-copy="anaisalbersario22@gmail.com" data-cursor="Copier"><span class="mono">Mail</span><span>anaisalbersario22@gmail.com</span><span>⧉</span></button>
             <a href="https://www.linkedin.com/in/ana%C3%AFsalbersario" target="_blank" rel="noopener"><span class="mono">LinkedIn</span><span>Anaïs Albersario</span><span>↗</span></a>
             <a href="https://www.instagram.com/anaisalbersario" target="_blank" rel="noopener"><span class="mono">Instagram</span><span>@anaisalbersario</span><span>↗</span></a>
           </div>
-          <a class="cv-btn" href="media/CV_Anais_Albersario.pdf" download>Mon CV <span>↓</span></a>
+          <a class="cv-btn" href="media/CV_Anais_Albersario.pdf" download data-magnet>Mon CV ↓</a>
+          <br><span class="hand direct__aside">pas besoin de cocher, un mail suffit ;)</span>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer mono">
-    <span>© 2026 Anaïs Albersario</span>
-    <span>Paris, France</span>
-    <span>Conçu & designé par Anaïs</span>
-    <a href="#top">Haut de page ↑</a>
+  <footer class="footer">
+    <div class="footer__big" aria-hidden="true"><svg viewBox="0 0 155.05 108.06"><use href="#logo"/></svg><span>Anaïs Albersario</span></div>
+    <div class="footer__row mono">
+      <span>© 2026 Anaïs Albersario</span>
+      <span>Imprimé à Paris</span>
+      <span>Conçu, découpé & collé par Anaïs</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

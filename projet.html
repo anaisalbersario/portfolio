@@ -3,43 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projet — Anaïs Albersario</title>
-  <meta name="description" content="Projet du portfolio d'Anaïs Albersario — direction artistique & communication.">
+  <title>Dossier — Anaïs Albersario</title>
+  <meta name="description" content="Un dossier du portfolio d'Anaïs Albersario — direction artistique & communication.">
   <meta name="theme-color" content="#e8261c">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23e8261c'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial Black,Arial' font-weight='900' font-size='40' fill='%23121010'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&family=Geist+Mono:wght@400;500&family=Reenie+Beanie&display=swap" rel="stylesheet">
-  <link rel="preload" href="fonts/Printvetica.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="fonts/FOSSSERIF-Regular.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="logo" viewBox="0 0 155.05 108.06"><path d="M11.26,23.35c-2.11-1.58-1.36-5.39-.35-7.35,1.4-2.71,4.2-4.53,7.05-5.4,6.31-1.93,12.51.97,15.35,6.85,6.79,14.04-2.48,30.79-5.79,44.48-3.39,14.01-3.15,30.72,8.95,40.58,11.28,9.19,25.64,6.56,34.2-4.78,17.91-23.73,6.42-63.98,35.6-80.21,12.08-6.72,28.81-4.14,35.53,8.8,6.27,12.07,3.49,28.8-2.3,40.55-6.77,13.72-20.88,22.61-35.42,13.83-15.32-9.24-15.86-29.33-8.03-43.73,3.08-5.66-5.56-10.71-8.63-5.05-8.19,15.06-9.43,34.68,1.68,48.68,9.8,12.34,27.04,17.56,41.43,10.3s21.48-23.65,23.75-38.49c2.44-16.02-.48-34.35-15.41-43.47s-32.9-5.34-45.39,5.46c-14.1,12.19-17.49,30.53-20.73,47.94-2.17,11.66-9.5,46.08-28.44,33.59s-3.47-40.13-.09-56.19S43.36,1.07,23.12.03C15.16-.38,6.75,3.48,2.6,10.42-1.78,17.74-.66,26.84,6.21,31.98c5.15,3.86,10.15-4.82,5.05-8.63h0Z"/><path d="M17.82,64.81c-7.38-14.56,16.58-14.75,24.25-17.94,11.41-4.74,19.66-14.57,25.25-25.31,2.97-5.7-5.66-10.76-8.63-5.05-3.48,6.7-7.91,13.15-14.12,17.61s-12.65,5.11-19.72,6.66c-6.36,1.4-12.41,4.38-15.66,10.29-3.27,5.94-3.01,12.84,0,18.78s11.54.69,8.63-5.05h0Z"/><path d="M20.38,95.09c-.47-15.12,23.35-16.64,33-22.36,10.93-6.49,18.54-18,20.25-30.57.86-6.29-8.78-9.02-9.64-2.66-.94,6.9-3.57,13.32-8.28,18.52-5.12,5.66-11.55,8.38-18.67,10.73-12.35,4.08-27.12,11.03-26.65,26.34.2,6.42,10.2,6.45,10,0h0Z"/></symbol>
+    <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.55" result="holes"/>
+      <feComposite in="SourceGraphic" in2="holes" operator="in" result="eroded"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="2" result="w"/>
+      <feDisplacementMap in="eroded" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="paperclip" viewBox="0 0 30 80"><path d="M9 22 V60 a6 6 0 0 0 12 0 V12 a9 9 0 0 0 -18 0 V62 a12 12 0 0 0 24 0 V26"/></symbol>
+  </svg>
+
   <header class="header" data-tone="dark">
-    <a href="index.html" class="header__brand" data-label="Accueil">Anaïs A.<small>Portfolio ©2026</small></a>
+    <a href="index.html" class="header__brand" data-label="Accueil"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg><span>Anaïs A.<small>Archive 24—26</small></span></a>
     <span class="header__clock mono" data-clock>Paris, FR</span>
     <nav class="header__nav mono" aria-label="Navigation principale">
-      <a href="index.html#travaux" data-label="Travaux"><span class="roll"><span>Travaux</span><span aria-hidden="true">Travaux</span></span></a>
-      <a href="index.html#a-propos" data-label="À propos"><span class="roll"><span>À propos</span><span aria-hidden="true">À propos</span></span></a>
-      <a href="index.html#contact" class="status" data-label="Contact"><i></i>Alternance 2026</a>
+      <a href="index.html#sommaire" data-label="Sommaire"><span class="roll"><span>Sommaire</span><span aria-hidden="true">Sommaire</span></span></a>
+      <a href="index.html#a-propos" data-label="Qui suis-je ?"><span class="roll"><span>Qui suis-je</span><span aria-hidden="true">Qui suis-je</span></span></a>
+      <a href="index.html#contact" class="status" data-label="On se rencontre ?"><i></i>Dispo en alternance</a>
       <button class="menu-btn mono" type="button" aria-expanded="false" aria-controls="mnav"><span>Menu</span><b></b></button>
     </nav>
   </header>
   <nav class="mnav" id="mnav" aria-label="Menu mobile">
     <div>
-      <a class="display" href="index.html">Accueil</a>
-      <a class="display" href="index.html#travaux">Travaux</a>
-      <a class="display" href="index.html#contact">Contact</a>
+      <a class="t" href="index.html">Accueil</a>
+      <a class="t" href="index.html#sommaire">Sommaire</a>
+      <a class="t" href="index.html#contact">Contact</a>
     </div>
     <div class="mono">anaisalbersario22@gmail.com<br>@anaisalbersario</div>
   </nav>
 
   <main id="project"></main>
 
-  <footer class="footer mono">
-    <span>© 2026 Anaïs Albersario</span>
-    <a href="mailto:anaisalbersario22@gmail.com">anaisalbersario22@gmail.com</a>
-    <a href="index.html" data-label="Accueil">← Accueil</a>
-    <a href="#project">Haut de page ↑</a>
+  <footer class="footer">
+    <div class="footer__big" aria-hidden="true"><svg viewBox="0 0 155.05 108.06"><use href="#logo"/></svg><span>Anaïs Albersario</span></div>
+    <div class="footer__row mono">
+      <span>© 2026 Anaïs Albersario</span>
+      <a href="mailto:anaisalbersario22@gmail.com">anaisalbersario22@gmail.com</a>
+      <a href="index.html" data-label="Accueil">← Retour à l'archive</a>
+      <a href="#project">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
