@@ -121,7 +121,7 @@
       master = ac.createGain(); master.gain.value = 0.0; master.connect(ac.destination);
       // craquement de vinyle : bruit filtré + pops
       const buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * 0.03 + (Math.random() < 0.0004 ? (Math.random() * 2 - 1) * 0.35 : 0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * 0.03 + (Math.random() < 0.0006 ? (Math.random() * 2 - 1) * 0.9 : 0);
       crackle = ac.createBufferSource(); crackle.buffer = buf; crackle.loop = true;
       const hp = ac.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 900;
       crackle.connect(hp).connect(master); crackle.start();
@@ -135,8 +135,7 @@
         a.playbackRate = rpm === 45 ? 1.25 : 1;
         a.preservesPitch = false; a.mozPreservesPitch = false; a.webkitPreservesPitch = false; // 45 tours = voix plus aiguë
         a.addEventListener("error", () => { if (fallback) tryFile(fallback); }, { once: true });
-        a.volume = 1;
-        a.addEventListener("ended", () => { if (voice === a) { voice = null; updateSound(); } });
+        a.addEventListener("ended", () => { if (voice === a) voice = null; });
         voice = a;
         a.play().catch(() => {});
       };
@@ -144,8 +143,7 @@
     };
     const updateSound = () => {
       if (!ac) return;
-      // pendant que tu parles, le grésillement passe tout bas
-      master.gain.setTargetAtTime(soundOn && playing ? (voice ? 0.05 : 0.18) : 0, ac.currentTime, 0.15);
+      master.gain.setTargetAtTime(soundOn && playing ? 0.35 : 0, ac.currentTime, 0.15);
     };
     const soundBtn = $("#sound");
     soundBtn.setAttribute("aria-pressed", "true");
@@ -232,7 +230,7 @@
       const now2 = performance.now(); vel = d / Math.max(1, now2 - lastT) * 16; lastT = now2;
       angle += d; rp = p;
       if (ac && soundOn) { // le scratch fait chanter le craquement
-        master.gain.setTargetAtTime(Math.min(0.6, 0.1 + Math.abs(vel) * 0.04), ac.currentTime, 0.02);
+        master.gain.setTargetAtTime(Math.min(1.6, 0.3 + Math.abs(vel) * 0.08), ac.currentTime, 0.02);
         crackle.playbackRate.setTargetAtTime(Math.max(0.2, Math.min(3, 1 + vel * 0.12)), ac.currentTime, 0.02);
       }
       if (voice) voice.playbackRate = Math.max(0.25, Math.min(3, Math.abs(1 + vel * 0.1)));
