@@ -30,7 +30,7 @@ git add -A && git commit -m "Mise à jour" && git push
 GitHub Pages republie le site en 1 à 2 minutes.
 
 ## Les jeux de l'accueil
-Ticket à gratter, platine (ma méthode), atelier d'affiche et memory : tout est dans `js/play.js`.
+Ticket à gratter, platine (ma méthode), atelier d'affiche : tout est dans `js/play.js`.
 Les morceaux de la platine (titres + phrases) sont en haut de la fonction `turntable`.
 
 ## Version anglaise
