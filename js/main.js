@@ -15,6 +15,10 @@
   const initialHash = location.hash;
   window.scrollTo(0, 0);
 
+  const I = window.I18N || { t: (k) => k, cur: (l) => l, f: (o, k) => o[k], href: (h) => h, apply() {}, set() {}, lang: "fr" };
+  App.I = I;
+  I.apply();
+
   /* ---------- utils ---------- */
   App.$ = (s, c = document) => c.querySelector(s);
   App.$$ = (s, c = document) => Array.from(c.querySelectorAll(s));
@@ -34,13 +38,13 @@
   /* ---------- grain + curseur + rideau ---------- */
   document.body.insertAdjacentHTML("beforeend", `
     <div class="grain" aria-hidden="true"></div>
-    <div class="curtain" aria-hidden="true"><div class="curtain__sheet torn-both tex"><div class="curtain__inner"><div class="stamp stamp--ring" data-stamp="Dossier · Archive 24—26 · Anaïs ·"></div><span class="curtain__label"></span></div></div></div>
+    <div class="curtain" aria-hidden="true"><div class="curtain__sheet torn-both tex"><div class="curtain__inner"><div class="stamp stamp--ring" data-stamp="${I.t("curtain_stamp")}"></div><span class="curtain__label"></span></div></div></div>
     <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__label"></div></div>
     <div class="toast" role="status" aria-live="polite"></div>
     <div class="lb" role="dialog" aria-modal="true" aria-label="Visionneuse">
-      <div class="lb__top"><span class="mono lb__count"></span><button class="lb__close mono" type="button">Fermer ✕</button></div>
+      <div class="lb__top"><span class="mono lb__count"></span><button class="lb__close mono" type="button">${I.t("close")}</button></div>
       <div class="lb__stage"></div>
-      <div class="lb__bot"><span class="mono lb__cap"></span><div class="lb__nav"><button type="button" data-lb="prev">← Préc.</button><button type="button" data-lb="next">Suiv. →</button></div></div>
+      <div class="lb__bot"><span class="mono lb__cap"></span><div class="lb__nav"><button type="button" data-lb="prev">${I.t("prev")}</button><button type="button" data-lb="next">${I.t("next")}</button></div></div>
     </div>`);
 
   /* ---------- tampons (logo encré) ---------- */
@@ -50,7 +54,7 @@
       if (el.dataset.built) return;
       el.dataset.built = "1";
       const id = "stp" + stampId++;
-      const txt = App.esc(el.dataset.stamp);
+      const txt = App.esc(I.lang === "en" && el.dataset.stampEn ? el.dataset.stampEn : el.dataset.stamp);
       el.innerHTML = `<svg class="ring inked" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" stroke-width="2.6"/><circle cx="50" cy="50" r="43.5" stroke-width=".8"/></svg>`
         + `<svg class="stamp__txt inked" viewBox="0 0 100 100"><defs><path id="${id}" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs><text><textPath href="#${id}">${txt} ${txt}</textPath></text></svg>`
         + `<svg class="logo inked" viewBox="0 0 155.05 108.06"><use href="#logo"/></svg>`;
@@ -142,7 +146,7 @@
       const t = e.target.closest("[data-cursor], a, button");
       if (!t) { cursor.classList.remove("is-link", "has-label"); return; }
       const l = t.getAttribute("data-cursor");
-      if (l) { label.textContent = l; cursor.classList.add("has-label"); cursor.classList.remove("is-link"); }
+      if (l) { label.textContent = I.cur(l); cursor.classList.add("has-label"); cursor.classList.remove("is-link"); }
       else { cursor.classList.add("is-link"); cursor.classList.remove("has-label"); }
     });
     document.addEventListener("pointerleave", () => cursor.style.opacity = 0);
@@ -204,6 +208,23 @@
     App.$$("a", mnav).forEach((a) => a.addEventListener("click", () => toggle(false)));
   }
 
+  /* switch FR / EN */
+  App.$$("[data-lang]").forEach((box) => {
+    box.innerHTML = ["fr", "en"].map((l) => `<button type="button" data-set-lang="${l}" aria-pressed="${I.lang === l}" aria-label="${l === "fr" ? "Français" : "English"}"><span>${l.toUpperCase()}</span></button>`).join("");
+  });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-set-lang]");
+    if (!b || b.dataset.setLang === I.lang) return;
+    const l = b.dataset.setLang;
+    I.set(l);
+    const u = new URL(location.href);
+    u.searchParams.set("lang", l);
+    const target = u.pathname.split("/").pop() + u.search + u.hash;
+    if (!hasGsap || reduced) { location.href = target; return; }
+    I.lang = l; // pour que App.go ne réécrive pas le lien
+    App.go(target, l === "en" ? "English" : "Français");
+  });
+
   /* ancres internes */
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
@@ -218,6 +239,7 @@
   const curtain = App.$(".curtain"), cLabel = App.$(".curtain__label"), cStamp = App.$(".curtain .stamp");
   if (hasGsap) gsap.set(curtain, { y: 0, yPercent: 110 }); // GSAP pilote seul le transform
   App.go = (href, label) => {
+    href = I.href(href);
     if (!hasGsap || reduced) { location.href = href; return; }
     cLabel.textContent = label || "";
     App.store.set("curtain", label || "·");
@@ -262,7 +284,7 @@
   document.addEventListener("click", async (e) => {
     const b = e.target.closest("[data-copy]");
     if (!b) return;
-    try { await navigator.clipboard.writeText(b.dataset.copy); App.toast("Adresse copiée ✓"); }
+    try { await navigator.clipboard.writeText(b.dataset.copy); App.toast(I.t("copied")); }
     catch (err) { location.href = "mailto:" + b.dataset.copy; }
   });
 

@@ -14,9 +14,10 @@
     const d = e.target.closest("[data-day]");
     if (d) {
       const dd = d.dataset.day.replace("-", "/");
+      const T = (k) => App.I.t(k);
       const items = window.EIA_CALENDAR.days[d.dataset.day].map((n) => n.startsWith("reel:")
-        ? { src: `media/eia/${n.slice(5)}.mp4`, cap: `Reel du ${dd}` }
-        : { src: `media/eia/${n}.jpg`, cap: `${n.startsWith("story") ? "Story" : "Post"} du ${dd}` });
+        ? { src: `media/eia/${n.slice(5)}.mp4`, cap: `${T("reel_of")} ${dd}` }
+        : { src: `media/eia/${n}.jpg`, cap: `${n.startsWith("story") ? T("story_of") : T("post_of")} ${dd}` });
       App.lightbox(items, 0);
     }
   });

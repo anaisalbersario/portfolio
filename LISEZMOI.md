@@ -29,6 +29,11 @@ git add -A && git commit -m "Mise à jour" && git push
 ```
 GitHub Pages republie le site en 1 à 2 minutes.
 
+## Version anglaise
+- Le bouton FR / EN est en haut à droite. Le choix est mémorisé, et `?lang=en` dans l'adresse force l'anglais.
+- Textes des projets : dans `js/data.js`, chaque projet a un bloc `en: { ... }` (et `cap_en` pour les légendes).
+- Textes de l'accueil : dans `js/i18n.js`.
+
 ## Typographies
 - Printvetica et FOSS Serif sont dans `fonts/`. Vérifie que leurs licences autorisent l'usage web.
 - Geist, Geist Mono et Reenie Beanie viennent de Google Fonts.

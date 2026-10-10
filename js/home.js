@@ -1,16 +1,23 @@
 /* =========================================================
-   Accueil — v2 (print × scrapbook × éditorial)
+   Accueil — v3 (dossiers à ouvrir + FR/EN)
    ========================================================= */
 (function () {
   const { $, $$, esc } = App;
+  const I = App.I;
   const hasGsap = typeof window.gsap !== "undefined";
   const anim = hasGsap && !App.reduced;
   const P = window.PROJECTS;
+  const F = (p, k) => I.f(p, k);
   const byId = (id) => P.find((p) => p.id === id);
   const url = (p) => `projet.html?p=${p.id}`;
   const pad = (n) => String(n).padStart(2, "0");
-  const lum = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
-  const mobile = matchMedia("(max-width: 900px)").matches;
+  const hexRgb = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
+  const lum = (h) => { const [r, g, b] = hexRgb(h); return (0.299 * r + 0.587 * g + 0.114 * b) / 255; };
+  const mix = (h, t, a) => { const c = hexRgb(h), d = hexRgb(t); return `rgb(${c.map((v, i) => Math.round(v + (d[i] - v) * a)).join(",")})`; };
+  const backOf = (p) => (lum(p.paper) < 0.25 ? mix(p.paper, "#ffffff", 0.14) : mix(p.paper, "#000000", 0.16));
+  const vars = (p) => `--fp:${p.paper};--fb:${backOf(p)};--fi:${p.ink};--fa:${p.accent}`;
+  const mobile = matchMedia("(max-width: 760px)").matches;
+  const capOf = (o, k = "cap") => (I.lang === "en" && o[k + "_en"] ? o[k + "_en"] : o[k] || "");
 
   /* ---------- flèches au feutre ---------- */
   const ARROWS = {
@@ -19,9 +26,9 @@
     left: ["0 0 86 46", "M84 30 C60 42 30 36 6 17 M6 17 L21 15 M6 17 L12 31"],
     right: ["0 0 86 46", "M2 30 C26 42 56 36 80 17 M80 17 L65 15 M80 17 L74 31"]
   };
-  const note = (n) => {
+  const noteHTML = (n) => {
     const [vb, d] = ARROWS[n.arrow || "left"];
-    return `<span class="note note--${n.arrow || "left"}" style="left:${n.x}%;top:${n.y}%"><svg data-draw viewBox="${vb}" aria-hidden="true"><path d="${d}"/></svg>${esc(n.text)}</span>`;
+    return `<span class="note note--${n.arrow || "left"}" style="left:${n.x}%;top:${n.y}%"><svg viewBox="${vb}" aria-hidden="true"><path d="${d}"/></svg>${esc(capOf(n, "text"))}</span>`;
   };
   let stk = 0;
   const sticker = (label) => { const id = "stk" + stk++; return `<span class="sticker"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="${id}" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#${id}">${label} · ${label} ·</textPath></text></svg><b>→</b></span>`; };
@@ -43,25 +50,26 @@
   addEventListener("resize", fit);
 
   const polaData = [
-    { id: "retrospective-2025", src: "media/magazine/couverture.jpg", cap: "Rétro 2025", l: 4, t: 40, r: -7 },
-    { id: "lab-of-the-year", src: "media/lab/B1.jpg", cap: "Lab of the Year", l: 21, t: 47, r: 5 },
+    { id: "retrospective-2025", src: "media/magazine/couverture.jpg", cap: "Rétro 2025", cap_en: "Retro 2025", l: 4, t: 40, r: -7 },
+    { id: "lab-of-the-year", src: "media/lab/P1166330.jpg", cap: "Lab of the Year", l: 21, t: 47, r: 5 },
     { id: "affiches", src: "media/affiches/maroc.jpg", cap: "Ma★roc", l: 60, t: 37, r: -4 },
-    { id: "eia-social", src: "media/eia/post_02-07-1.jpg", cap: "EÏA, juil. 26", l: 74, t: 47, r: 8 },
-    { id: "eia-nouvelle-da", src: "media/nda/9302.jpg", cap: "en peignoir", l: 88, t: 45, r: -10 }
+    { id: "eia-social", src: "media/eia/post_02-07-1.jpg", cap: "EÏA, juil. 26", cap_en: "EÏA, Jul. 26", l: 74, t: 47, r: 8 },
+    { id: "eia-nouvelle-da", src: "media/nda/9302.jpg", cap: "en peignoir", cap_en: "in a bathrobe", l: 88, t: 45, r: -10 }
   ];
+  const narrow = matchMedia("(max-width: 900px)").matches;
   const mobPos = [{ l: 4, t: 55 }, { l: 37, t: 60 }, { l: 68, t: 54 }];
   const polas = $("#polas");
-  (mobile ? polaData.slice(0, 3) : polaData).forEach((d, i) => {
-    const pos = mobile ? mobPos[i] : d;
+  (narrow ? polaData.slice(0, 3) : polaData).forEach((d, i) => {
+    const pos = narrow ? mobPos[i] : d;
     const p = byId(d.id);
     const f = document.createElement("figure");
     f.className = "pola"; f.tabIndex = 0;
-    f.setAttribute("role", "link"); f.setAttribute("aria-label", `Ouvrir le dossier ${p.name}`);
+    f.setAttribute("role", "button"); f.setAttribute("aria-label", F(p, "name"));
     f.dataset.cursor = "Attrape"; f.dataset.rot = d.r;
-    f.style.left = `calc(${pos.l}% - ${mobile ? 0 : 60}px)`; f.style.top = pos.t + "%";
-    f.innerHTML = `<span class="tape tape--t"></span><img src="${d.src}" alt="" draggable="false"><figcaption>${esc(d.cap)}</figcaption>`;
+    f.style.left = `calc(${pos.l}% - ${narrow ? 0 : 60}px)`; f.style.top = pos.t + "%";
+    f.innerHTML = `<span class="tape tape--t"></span><img src="${d.src}" alt="" draggable="false"><figcaption>${esc(capOf(d))}</figcaption>`;
     polas.appendChild(f);
-    App.draggable(f, $(".hero"), () => App.go(url(p), p.title));
+    App.draggable(f, $(".hero"), () => openFolder(p.id, f));
   });
 
   // traînée d'encre qui suit la souris sur le hero
@@ -115,11 +123,11 @@
      ======================================================= */
   const toc = $("#toc");
   toc.innerHTML = P.map((p, i) => `
-    <li class="toc__item"><a href="#d-${p.id}" data-id="${p.id}" data-cursor="Feuilleter">
+    <li class="toc__item"><a href="${url(p)}" data-id="${p.id}" data-cursor="Ouvrir">
       <span class="toc__n">${pad(i + 1)}</span>
-      <span class="toc__title">${esc(p.title)}</span>
+      <span class="toc__title">${esc(F(p, "title"))}</span>
       <span class="toc__dots" aria-hidden="true"></span>
-      <span class="toc__cat">${esc(p.cat)}</span>
+      <span class="toc__cat">${esc(F(p, "cat"))}</span>
       <span class="toc__p">p.${pad(i * 2 + 4)}</span>
     </a></li>`).join("");
   const prev = $("#tocPreview"), prevImgs = $(".imgs", prev), prevCap = $(".pcap", prev);
@@ -135,60 +143,155 @@
     toc.addEventListener("pointerover", (e) => {
       const a = e.target.closest("a"); if (!a) return;
       $$("img", prevImgs).forEach((im) => im.classList.toggle("is-on", im.dataset.id === a.dataset.id));
-      prevCap.textContent = byId(a.dataset.id).blurb.split(/[.,(]/)[0].toLowerCase();
+      prevCap.textContent = F(byId(a.dataset.id), "blurb").split(/[.,(]/)[0].toLowerCase();
       prev.classList.add("is-on");
     });
     toc.addEventListener("pointerleave", () => prev.classList.remove("is-on"));
   }
+  toc.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-id]"); if (!a) return;
+    e.preventDefault(); e.stopPropagation();
+    prev.classList.remove("is-on");
+    openFolder(a.dataset.id, a);
+  }, true);
 
   /* =======================================================
-     DOSSIERS : feuilles empilées
+     LE CLASSEUR : dossiers fermés
      ======================================================= */
-  const dos = $("#dossiers");
-  const stampSpots = [["78%", "4%"], ["2%", "74%"], ["72%", "72%"], ["44%", "0%"]];
-  dos.innerHTML = P.map((p, i) => {
-    const dark = lum(p.paper) < 0.45;
-    const items = p.collage.map((c, j) => {
-      const depth = (j + 1) * 0.6;
-      const attrs = `href="${url(p)}" data-label="${esc(p.title)}" data-cursor="Ouvrir" data-depth="${depth}" style="left:${c.x}%;top:${c.y}%;width:${c.w}%;rotate:${c.r}deg"`;
-      if (c.kind === "pola") return `<a class="collage__item pola" ${attrs}><span class="tape tape--t"></span><img src="${c.src}" alt="" loading="lazy"><figcaption>${esc(c.cap || "")}</figcaption></a>`;
-      if (c.kind === "cut") return `<a class="collage__item cut" ${attrs}><img src="${c.src}" alt="" loading="lazy"></a>`;
-      return `<a class="collage__item photo" ${attrs}><span class="tape tape--tl"></span><span class="tape tape--tr"></span><img src="${c.src}" alt="" loading="lazy"></a>`;
-    }).join("");
-    const [sl, st] = stampSpots[i % stampSpots.length];
+  const folders = $("#folders");
+  const tilts = [-2.4, 1.6, -1, 2.2, -1.8, 1.2, -2.6, 1.9, -1.3, 2.4];
+  folders.innerHTML = P.map((p, i) => {
+    const peeks = p.collage.slice(0, 2).map((c) => `<img src="${c.src}" alt="" loading="lazy">`).join("");
     return `
-    <article class="sheet" id="d-${p.id}" data-tone="${dark ? "light" : "dark"}" style="--sp:${p.paper};--si:${p.ink};--sa:${p.accent}">
-      <div class="sheet__inner tex">
-        <div class="sheet__meta mono"><span data-scr>Dossier n°${pad(i + 1)} / ${pad(P.length)}</span><span data-scr>${esc(p.cat)}</span><span data-scr>${esc(p.year)}</span></div>
-        <div class="sheet__txt">
-          <span class="sheet__num" aria-hidden="true">${pad(i + 1)}</span>
-          <div>
-            <h2 class="sheet__title"><a href="${url(p)}" data-label="${esc(p.title)}" data-cursor="Ouvrir"><span class="line-reveal"><span>${esc(p.title)}</span></span></a></h2>
-            <p class="sheet__blurb">${esc(p.blurb)}</p>
-            <div class="sheet__tags"><span class="label">${esc(p.role)}</span><span class="label label--light">${esc(p.tools)}</span></div>
-            <a class="sheet__cta" href="${url(p)}" data-label="${esc(p.title)}" data-cursor="Ouvrir">${sticker("Ouvrir le dossier")}<span class="mono">Ouvrir<br>le dossier</span></a>
+    <button class="folder" type="button" data-id="${p.id}" data-cursor="Ouvrir" aria-label="${esc(I.t("open_folder"))} : ${esc(F(p, "name"))}" style="${vars(p)};--r:${tilts[i % tilts.length]}deg;--tx:${[8, 34, 58][i % 3]}%">
+      <span class="folder__back"></span>
+      <span class="folder__tab">${I.t("file_no")}${pad(i + 1)}</span>
+      <span class="folder__peek"><span class="sheetp"></span>${peeks}</span>
+      <span class="folder__front tex">
+        <span class="folder__row mono"><span>${esc(F(p, "cat"))}</span><span>${esc(p.year)}</span></span>
+        <span class="folder__label"><span class="t">${esc(F(p, "title"))}</span><span class="mono">${esc(F(p, "name"))}</span></span>
+        <span class="folder__row"><span class="folder__hand">${I.t("click_open")} →</span></span>
+        <span class="stamp stamp--ring" data-stamp="${esc(F(p, "name"))} · ${esc(p.year)} ·"></span>
+      </span>
+    </button>`;
+  }).join("");
+  App.buildStamps(folders);
+  folders.addEventListener("click", (e) => { const f = e.target.closest(".folder"); if (f) openFolder(f.dataset.id, f); });
+
+  /* =======================================================
+     DOSSIER OUVERT (modale 3D)
+     ======================================================= */
+  const fm = $("#fm");
+  let fmTl = null, lastFocus = null, isOpen = false;
+
+  const infoHTML = (p, i, extra = "") => `
+    <div class="fm__info ${extra}">
+      <div class="info-sheet__row"><span class="mono">${I.t("file_no")}${pad(i + 1)} · ${esc(F(p, "cat"))}</span>
+        <h2 class="fm__title">${esc(F(p, "title"))}</h2>
+        <p class="fm__blurb">${esc(F(p, "blurb"))}</p>
+      </div>
+      <div class="fm__grid">
+        <div class="info-sheet__row"><span class="mono">${I.t("client")}</span><p>${esc(F(p, "client"))}</p></div>
+        <div class="info-sheet__row"><span class="mono">${I.t("year")}</span><p>${esc(p.year)}</p></div>
+        <div class="info-sheet__row"><span class="mono">${I.t("role")}</span><p>${esc(F(p, "role"))}</p></div>
+        <div class="info-sheet__row"><span class="mono">${I.t("tools")}</span><p>${esc(F(p, "tools"))}</p></div>
+      </div>
+      <p class="fm__lead">${esc(F(p, "lead"))}</p>
+      <a class="fm__cta" href="${url(p)}" data-label="${esc(F(p, "title"))}" data-cursor="Ouvrir">${sticker(I.t("read_full"))}<span class="mono">${I.t("read_full")}</span></a>
+    </div>`;
+
+  function openFolder(id, origin) {
+    if (isOpen) return;
+    const i = P.findIndex((p) => p.id === id), p = P[i];
+    if (!p) return;
+    isOpen = true; lastFocus = origin || document.activeElement;
+    const items = p.collage.map((c) => {
+      const pos = `left:${c.x}%;top:${c.y}%;width:${c.w}%;rotate:${c.r}deg`;
+      const inner = c.kind === "pola"
+        ? `<span class="tape tape--t"></span><img src="${c.src}" alt=""><figcaption>${esc(capOf(c))}</figcaption>`
+        : c.kind === "cut" ? `<img src="${c.src}" alt="">`
+        : `<span class="tape tape--tl"></span><span class="tape tape--tr"></span><img src="${c.src}" alt="">`;
+      return `<figure class="collage__item ${c.kind === "pola" ? "pola" : c.kind}" data-src="${c.src}" data-cursor="Agrandir" style="${pos}">${inner}</figure>`;
+    }).join("");
+    const tab = `${I.t("file_no")}${pad(i + 1)} — ${F(p, "name")}`;
+    fm.innerHTML = `
+      <div class="fm__bg"></div>
+      <button class="fm__close" type="button">${I.t("close")}</button>
+      <div class="fm__spread" style="${vars(p)}">
+        <div class="fm__half fm__left"></div>
+        <div class="fm__half fm__right" data-tab="${esc(tab)}">
+          <div class="fm__scroll">
+            ${infoHTML(p, i, "fm__info--m")}
+            <div class="fm__page tex">
+              <div class="collage">${items}${p.note ? noteHTML(p.note) : ""}
+                <div class="stamp stamp--ring" style="right:4%;bottom:4%;rotate:-12deg" data-stamp="${esc(F(p, "name"))} · ${esc(p.year)} · ${I.t("approved")} ·"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="collage">
-          ${items}
-          ${p.note ? note(p.note) : ""}
-          <div class="stamp stamp--ring" style="left:${sl};top:${st};rotate:${(i % 2 ? 1 : -1) * (8 + i)}deg" data-stamp="${esc(p.name)} · ${esc(p.year)} ·"></div>
+        <div class="fm__cover">
+          <div class="fm__face fm__face--front tex">
+            <span class="folder__row mono"><span>${esc(F(p, "cat"))}</span><span>${esc(p.year)}</span></span>
+            <span class="folder__label"><span class="t">${esc(F(p, "title"))}</span><span class="mono">${esc(F(p, "name"))}</span></span>
+            <span class="folder__row mono"><span>${I.t("file_no")}${pad(i + 1)}</span><span>${I.t("confidential")}</span></span>
+          </div>
+          <div class="fm__face fm__face--back">${infoHTML(p, i)}</div>
         </div>
-        <div class="sheet__shade"></div>
-      </div>
-    </article>`;
-  }).join("");
-  App.buildStamps(dos);
+      </div>`;
+    App.buildStamps(fm);
+    fm.classList.add("is-open");
+    App.stop();
+    const spread = $(".fm__spread", fm), cover = $(".fm__cover", fm), bg = $(".fm__bg", fm);
+    const itemsEl = $$(".collage__item", fm), notePath = $(".note path", fm), stamp = $(".fm__page .stamp", fm);
+    if (notePath) { const l = notePath.getTotalLength(); notePath.style.strokeDasharray = l; notePath.style.strokeDashoffset = l; }
+    $(".fm__close", fm).focus({ preventScroll: true });
 
-  // sommaire → feuille
-  toc.addEventListener("click", (e) => {
-    const a = e.target.closest("a"); if (!a) return;
-    e.preventDefault(); e.stopPropagation();
-    const sheets = $$(".sheet", dos), idx = sheets.findIndex((s) => s.id === "d-" + a.dataset.id);
-    const isSticky = getComputedStyle(sheets[0]).position === "sticky";
-    const top = isSticky ? dos.getBoundingClientRect().top + scrollY + idx * sheets[0].offsetHeight : sheets[idx].getBoundingClientRect().top + scrollY;
-    App.lenis ? App.lenis.scrollTo(top, { duration: 1.6 }) : scrollTo(0, top);
-  }, true);
+    if (!anim) {
+      cover.style.display = "none"; bg.style.opacity = 1;
+      if (notePath) notePath.style.strokeDashoffset = 0;
+      if (stamp) stamp.style.opacity = 0.92;
+      return;
+    }
+    gsap.set(stamp, { opacity: 0 });
+    // le dossier part de l'endroit où on a cliqué
+    let from = { y: innerHeight * 0.6, x: 0 };
+    if (origin && origin.getBoundingClientRect) {
+      const r = origin.getBoundingClientRect(), s = spread.getBoundingClientRect();
+      from = { x: r.left + r.width / 2 - (s.left + s.width * (mobile ? 0.5 : 0.75)), y: r.top + r.height / 2 - (s.top + s.height / 2) };
+    }
+    fmTl = gsap.timeline();
+    fmTl.to(bg, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    if (mobile) {
+      fmTl.from(spread, { x: from.x, y: from.y, scale: 0.4, rotation: 8, duration: 0.8, ease: "expo.out" }, 0)
+        .to(cover, { yPercent: -112, rotation: -5, duration: 0.9, ease: "power3.inOut" }, 0.7);
+    } else {
+      gsap.set(spread, { xPercent: -25 });
+      fmTl.from(spread, { x: from.x, y: from.y, scale: 0.35, rotation: 6, duration: 0.85, ease: "expo.out" }, 0)
+        .to(cover, { rotationY: -180, duration: 1.25, ease: "power3.inOut" }, 0.7)
+        .to(spread, { xPercent: 0, duration: 1.25, ease: "power3.inOut" }, 0.7);
+    }
+    fmTl.from(itemsEl, { y: 140, rotation: () => gsap.utils.random(-20, 20), opacity: 0, duration: 1, ease: "expo.out", stagger: 0.08 }, 1.25)
+      .from($$(".fm__page .tape", fm), { scaleX: 0, duration: 0.4, stagger: 0.04 }, 1.6);
+    if (notePath) fmTl.to(notePath, { strokeDashoffset: 0, duration: 0.8, ease: "power2.inOut" }, 1.7)
+      .from($(".note", fm), { opacity: 0, duration: 0.4 }, 1.7);
+    fmTl.add(() => App.stampIn(stamp, { shake: $(".fm__page", fm) }), 1.9);
+  }
+
+  function closeFolder() {
+    if (!isOpen) return;
+    const done = () => { fm.classList.remove("is-open"); fm.innerHTML = ""; isOpen = false; App.start(); lastFocus && lastFocus.focus && lastFocus.focus({ preventScroll: true }); };
+    if (!anim || !fmTl) return done();
+    fmTl.timeScale(2.2).reverse().eventCallback("onReverseComplete", done);
+  }
+  fm.addEventListener("click", (e) => {
+    if (e.target.closest(".fm__close") || e.target.classList.contains("fm__bg")) return closeFolder();
+    const it = e.target.closest(".collage__item");
+    if (it) {
+      const list = $$(".collage__item", fm).map((x) => ({ src: x.dataset.src, cap: "" }));
+      App.lightbox(list, $$(".collage__item", fm).indexOf(it));
+    }
+  });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen && !$(".lb.is-open")) closeFolder(); });
 
   /* =======================================================
      SUR LE FIL : corde à linge
@@ -198,8 +301,8 @@
   track.insertAdjacentHTML("beforeend", posters.map((p, i) => `
     <figure class="hang" data-i="${i}">
       <span class="peg" aria-hidden="true"></span>
-      <img src="${p.src}" alt="Affiche ${esc(p.t)}" loading="lazy" draggable="false">
-      <figcaption><span class="hand">${esc(p.t)}</span><span class="mono">${pad(i + 1)} — ${p.y}</span></figcaption>
+      <img src="${p.src}" alt="${esc(capOf(p, "t"))}" loading="lazy" draggable="false">
+      <figcaption><span class="hand">${esc(capOf(p, "t"))}</span><span class="mono">${pad(i + 1)} — ${p.y}</span></figcaption>
     </figure>`).join(""));
   const hangs = $$(".hang", track);
   const phys = hangs.map(() => ({ a: (Math.random() - 0.5) * 6, w: 0 }));
@@ -221,12 +324,11 @@
       tx = Math.max(0, Math.min(max(), tx - dragV * 14));
       if (!moved) {
         const el = document.elementFromPoint(e.clientX, e.clientY), f = el && el.closest(".hang");
-        if (f) App.lightbox(posters.map((p) => ({ src: p.src, cap: `${p.t}, ${p.y}` })), +f.dataset.i);
+        if (f) App.lightbox(posters.map((p) => ({ src: p.src, cap: `${capOf(p, "t")}, ${p.y}` })), +f.dataset.i);
       }
     };
     wrap.addEventListener("pointerup", up); wrap.addEventListener("pointercancel", up);
     wrap.addEventListener("wheel", (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); tx = Math.max(0, Math.min(max(), tx + e.deltaX)); } }, { passive: false });
-
     const pegY = 40;
     const drawRope = (t) => {
       const W = track.scrollWidth;
@@ -268,15 +370,15 @@
     e.preventDefault();
     const fd = new FormData(form);
     const who = fd.getAll("who"), what = fd.getAll("what"), nm = (fd.get("name") || "").trim();
-    const list = (a) => (a.length > 1 ? a.slice(0, -1).join(", ") + " et " + a[a.length - 1] : a[0]);
+    const list = (a) => (a.length > 1 ? a.slice(0, -1).join(", ") + ` ${I.t("mail_and")} ` + a[a.length - 1] : a[0]);
     const body = [
-      "Bonjour Anaïs,", "",
-      `Nous sommes ${who.length ? list(who) : "une entreprise qui a aimé ton portfolio"}${what.length ? ` et nous cherchons ${list(what)}` : ""}.`,
-      "Parlons-en !", "", nm
+      I.t("mail_hello"), "",
+      `${I.t("mail_we_are")} ${who.length ? list(who) : I.t("mail_default")}${what.length ? ` ${I.t("mail_looking")} ${list(what)}` : ""}.`,
+      I.t("mail_talk"), "", nm
     ].join("\n");
-    const subject = `Alternance 2026${nm ? " — " + nm : ""}`;
+    const subject = `${I.t("mail_subject")}${nm ? " — " + nm : ""}`;
     App.stampIn($("#recu"), { shake: form });
-    App.toast("Votre messagerie s'ouvre…");
+    App.toast(I.t("mail_opening"));
     setTimeout(() => { location.href = `mailto:${window.SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; }, 750);
   });
 
@@ -313,7 +415,6 @@
       .from(".hero__note, .hero__foot", { opacity: 0, duration: 0.8 }, 1.1);
   };
 
-  // loader : le logo se dessine, le compteur monte
   const loader = $(".loader");
   const runLoader = () => {
     const num = $(".loader__count", loader), bar = $(".loader__bar i", loader), paths = $$(".loader__logo path", loader);
@@ -360,7 +461,6 @@
     return;
   }
 
-  // hero : lettres qui suivent la souris + sortie parallaxe
   if (App.fine) addEventListener("pointermove", (e) => {
     const nx = e.clientX / innerWidth - 0.5;
     firstChars.forEach((c, i) => gsap.to(c, { x: nx * (i - 2) * 28, duration: 1, ease: "power3.out", overwrite: "auto" }));
@@ -368,7 +468,7 @@
   gsap.to("#heroName", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to("#polas", { yPercent: -35, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
-  // note : la feuille arrive, les mots s'impriment
+  // note
   gsap.from("#letter", { y: 160, rotation: 4, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: "#letter", start: "top 92%" } });
   gsap.fromTo($$(".w", man), { opacity: 0.12 }, { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: man, start: "top 78%", end: "bottom 50%", scrub: true } });
   $$(".cut", man).forEach((c, i) => gsap.from(c, { scale: 0, rotation: (i % 2 ? 1 : -1) * 18, duration: 0.7, ease: "back.out(2.4)", scrollTrigger: { trigger: c, start: "top 82%" } }));
@@ -386,35 +486,10 @@
   gsap.from(".toc__item", { y: 40, opacity: 0, duration: 0.9, ease: "expo.out", stagger: 0.05, clearProps: "opacity,transform", scrollTrigger: { trigger: "#toc", start: "top 85%" } });
   gsap.from(".toc__dots", { scaleX: 0, duration: 1.2, ease: "expo.out", stagger: 0.05, scrollTrigger: { trigger: "#toc", start: "top 80%" } });
 
-  // dossiers
-  const sheets = $$(".sheet", dos);
-  const sticky = !mobile;
-  sheets.forEach((sh, i) => {
-    const inner = $(".sheet__inner", sh), items = $$(".collage__item", sh);
-    const st = $(".stamp", sh);
-    gsap.set(st, { opacity: 0 });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: sh, start: sticky ? "top 55%" : "top 80%", once: true } });
-    tl.from($$(".line-reveal > span", sh), { yPercent: 115, duration: 1.2, ease: "expo.out" })
-      .add(() => $$("[data-scr]", sh).forEach((m) => App.scramble(m)), 0)
-      .from($(".sheet__num", sh), { yPercent: 40, opacity: 0, duration: 1.2, ease: "expo.out" }, 0)
-      .from(items, { y: 220, rotation: () => gsap.utils.random(-25, 25), opacity: 0, duration: 1.3, ease: "expo.out", stagger: 0.09 }, 0.05)
-      .from($$(".tape", sh), { scaleX: 0, duration: 0.5, ease: "power3.out", stagger: 0.04 }, 0.55)
-      .from($$(".sheet__blurb, .sheet__tags, .sheet__cta", sh), { y: 30, opacity: 0, duration: 0.9, ease: "expo.out", stagger: 0.08 }, 0.25)
-      .add(() => App.stampIn(st, {}), 0.9);
-    // la feuille du dessous s'enfonce dans la pile
-    if (sticky && i > 0) {
-      const st2 = { trigger: sh, start: "top bottom", end: "top top", scrub: true };
-      gsap.to($(".sheet__inner", sheets[i - 1]), { scale: 0.9, rotation: i % 2 ? 2.5 : -2.5, yPercent: -3, ease: "none", scrollTrigger: st2 });
-      gsap.to($(".sheet__shade", sheets[i - 1]), { opacity: 0.5, ease: "none", scrollTrigger: { ...st2 } });
-    }
-    // profondeur : le collage suit la souris
-    if (App.fine) {
-      const qs = items.map((it) => ({ x: gsap.quickTo(it, "x", { duration: 1.2, ease: "power3.out" }), y: gsap.quickTo(it, "y", { duration: 1.2, ease: "power3.out" }), d: parseFloat(it.dataset.depth) }));
-      inner.addEventListener("pointermove", (e) => {
-        const r = inner.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
-        qs.forEach((q) => { q.x(nx * 30 * q.d); q.y(ny * 22 * q.d); });
-      });
-    }
+  // classeur : les dossiers tombent sur le bureau
+  ScrollTrigger.batch(".folder", {
+    start: "top 92%", once: true,
+    onEnter: (els) => gsap.from(els, { y: 160, rotation: () => gsap.utils.random(-14, 14), opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.09 })
   });
 
   // corde à linge

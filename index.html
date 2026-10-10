@@ -15,8 +15,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&family=Geist+Mono:wght@400;500&family=Reenie+Beanie&display=swap" rel="stylesheet">
   <link rel="preload" href="fonts/FOSSSERIF-Regular.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/i18n.js"></script>
 </head>
 <body class="is-loading">
+  <span hidden data-en-title="Anaïs Albersario — Art direction & communication"></span>
 
   <!-- symboles partagés : logo, encre de tampon, trombone -->
   <svg class="sprite" aria-hidden="true">
@@ -33,31 +35,33 @@
 
   <!-- LOADER -->
   <div class="loader" aria-hidden="true">
-    <div class="loader__top mono"><span>Archive personnelle</span><span>Dossier n° AA—2026</span></div>
+    <div class="loader__top mono" data-i18n="loader_top"><span>Archive personnelle</span><span>Dossier n° AA—2026</span></div>
     <svg class="loader__logo" viewBox="-2 -2 159 112"><path d="M11.26,23.35c-2.11-1.58-1.36-5.39-.35-7.35,1.4-2.71,4.2-4.53,7.05-5.4,6.31-1.93,12.51.97,15.35,6.85,6.79,14.04-2.48,30.79-5.79,44.48-3.39,14.01-3.15,30.72,8.95,40.58,11.28,9.19,25.64,6.56,34.2-4.78,17.91-23.73,6.42-63.98,35.6-80.21,12.08-6.72,28.81-4.14,35.53,8.8,6.27,12.07,3.49,28.8-2.3,40.55-6.77,13.72-20.88,22.61-35.42,13.83-15.32-9.24-15.86-29.33-8.03-43.73,3.08-5.66-5.56-10.71-8.63-5.05-8.19,15.06-9.43,34.68,1.68,48.68,9.8,12.34,27.04,17.56,41.43,10.3s21.48-23.65,23.75-38.49c2.44-16.02-.48-34.35-15.41-43.47s-32.9-5.34-45.39,5.46c-14.1,12.19-17.49,30.53-20.73,47.94-2.17,11.66-9.5,46.08-28.44,33.59s-3.47-40.13-.09-56.19S43.36,1.07,23.12.03C15.16-.38,6.75,3.48,2.6,10.42-1.78,17.74-.66,26.84,6.21,31.98c5.15,3.86,10.15-4.82,5.05-8.63h0Z"/><path d="M17.82,64.81c-7.38-14.56,16.58-14.75,24.25-17.94,11.41-4.74,19.66-14.57,25.25-25.31,2.97-5.7-5.66-10.76-8.63-5.05-3.48,6.7-7.91,13.15-14.12,17.61s-12.65,5.11-19.72,6.66c-6.36,1.4-12.41,4.38-15.66,10.29-3.27,5.94-3.01,12.84,0,18.78s11.54.69,8.63-5.05h0Z"/><path d="M20.38,95.09c-.47-15.12,23.35-16.64,33-22.36,10.93-6.49,18.54-18,20.25-30.57.86-6.29-8.78-9.02-9.64-2.66-.94,6.9-3.57,13.32-8.28,18.52-5.12,5.66-11.55,8.38-18.67,10.73-12.35,4.08-27.12,11.03-26.65,26.34.2,6.42,10.2,6.45,10,0h0Z"/></svg>
     <div>
-      <div class="loader__bottom"><span class="mono">On découpe, on colle, on imprime…</span><span class="loader__count">000</span></div>
+      <div class="loader__bottom"><span class="mono" data-i18n="loader_txt">On découpe, on colle, on imprime…</span><span class="loader__count">000</span></div>
       <div class="loader__bar"><i></i></div>
     </div>
   </div>
 
   <!-- HEADER -->
   <header class="header" data-tone="red">
-    <a href="#top" class="header__brand" aria-label="Retour en haut"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg><span>Anaïs A.<small>Archive 24—26</small></span></a>
+    <a href="#top" class="header__brand" aria-label="Anaïs Albersario"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg><span>Anaïs A.<small>Archive 24—26</small></span></a>
     <span class="header__clock mono" data-clock>Paris, FR</span>
-    <nav class="header__nav mono" aria-label="Navigation principale">
-      <a href="#sommaire"><span class="roll"><span>Dossiers</span><span aria-hidden="true">Dossiers</span></span></a>
-      <a href="#a-propos"><span class="roll"><span>Qui suis-je</span><span aria-hidden="true">Qui suis-je</span></span></a>
-      <a href="#contact" class="status"><i></i>Dispo en alternance</a>
+    <nav class="header__nav mono" aria-label="Navigation">
+      <a href="#classeur" data-i18n="nav_files"><span class="roll"><span>Dossiers</span><span aria-hidden="true">Dossiers</span></span></a>
+      <a href="#a-propos" data-i18n="nav_about"><span class="roll"><span>Qui suis-je</span><span aria-hidden="true">Qui suis-je</span></span></a>
+      <a href="#contact" class="status" data-i18n="nav_status"><i></i>Dispo en alternance</a>
+      <span class="lang" data-lang></span>
       <button class="menu-btn mono" type="button" aria-expanded="false" aria-controls="mnav"><span>Menu</span><b></b></button>
     </nav>
   </header>
-  <nav class="mnav" id="mnav" aria-label="Menu mobile">
+  <nav class="mnav" id="mnav" aria-label="Menu">
     <div>
-      <a class="t" href="#sommaire">Dossiers</a>
-      <a class="t" href="#sur-le-fil">Affiches</a>
-      <a class="t" href="#a-propos">Qui suis-je</a>
-      <a class="t" href="#contact">Contact</a>
+      <a class="t" href="#classeur" data-i18n="m_files">Dossiers</a>
+      <a class="t" href="#sur-le-fil" data-i18n="m_posters">Affiches</a>
+      <a class="t" href="#a-propos" data-i18n="m_about">Qui suis-je</a>
+      <a class="t" href="#contact" data-i18n="m_contact">Contact</a>
+      <span class="lang mono" data-lang></span>
     </div>
     <div class="mono">anaisalbersario22@gmail.com<br>@anaisalbersario</div>
   </nav>
@@ -73,21 +77,15 @@
           <div class="hero__lead">Portfolio©<br>Archive 24—26</div>
         </div>
         <div class="hero__row2">
-          <p class="hero__blk">Étudiante en 3<sup>e</sup> année<br>à l'ESD, Paris.<br>Je découpe, je cadre,<br>je colle — et je publie.</p>
+          <p class="hero__blk" data-i18n="hero_blk1">Étudiante en 3<sup>e</sup> année<br>à l'ESD, Paris.<br>Je découpe, je cadre,<br>je colle — et je publie.</p>
           <span class="hero__num"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg></span>
-          <p class="hero__blk">
-            Je cherche une
-            <span class="hero__seal">alternance
-              <svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M28 14 C78 -2 176 2 192 32 C206 62 122 82 58 74 C10 68 -6 40 18 22 C34 10 66 4 98 8"/></svg>
-            </span><br>
-            en direction artistique<br>ou en com,<br>dès sept. / oct. 2026.
-          </p>
-          <p class="hero__blk" style="text-align:right">Shootings, feeds,<br>affiches, magazines.<br>Des images<br>qu'on garde.</p>
+          <p class="hero__blk" data-i18n="hero_blk2">Je cherche une <span class="hero__seal">alternance<svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M28 14 C78 -2 176 2 192 32 C206 62 122 82 58 74 C10 68 -6 40 18 22 C34 10 66 4 98 8"/></svg></span><br>en direction artistique<br>ou en com,<br>dès sept. / oct. 2026.</p>
+          <p class="hero__blk" style="text-align:right" data-i18n="hero_blk3">Shootings, feeds,<br>affiches, magazines.<br>Des images<br>qu'on garde.</p>
         </div>
       </div>
 
       <div class="hero__stage" id="heroStage">
-        <span class="hero__note" style="left:46%;top:16%">← attrape un polaroid</span>
+        <span class="hero__note" style="left:46%;top:16%" data-i18n="hero_note">← attrape un polaroid</span>
       </div>
 
       <div>
@@ -95,7 +93,7 @@
           <span class="nrow" data-split>ANAÏS</span>
           <span class="nrow" data-fit>ALBERSARIO</span>
         </h1>
-        <div class="hero__foot mono">
+        <div class="hero__foot mono" data-i18n="hero_foot">
           <span>10 dossiers à ouvrir</span>
           <span class="hero__scroll"><i></i>Défiler</span>
           <span>DA × Communication</span>
@@ -108,60 +106,57 @@
 
     <!-- BANDES -->
     <div class="bands" aria-hidden="true">
-      <div class="band"><span class="band__stub">AA-2026</span><div class="band__track" data-marquee="1">
-        <span class="band__item">Dispo en alternance <i>sept./oct. 2026</i> ✶</span>
-        <span class="band__item">Direction artistique & com ✶</span>
-        <span class="band__item">Je découpe, je cadre, je publie ✶</span>
-      </div></div>
-      <div class="band"><span class="band__stub">PARIS</span><div class="band__track" data-marquee="-1">
-        <span class="band__item">Imprimé à Paris ✶</span>
-        <span class="band__item"><i>archive</i> 24—26 ✶</span>
-        <span class="band__item">Fait main (et sur Figma) ✶</span>
-      </div></div>
+      <div class="band"><span class="band__stub">AA-2026</span><div class="band__track" data-marquee="1" data-i18n="band1"><span class="band__item">Dispo en alternance <i>sept./oct. 2026</i> ✶</span><span class="band__item">Direction artistique & com ✶</span><span class="band__item">Je découpe, je cadre, je publie ✶</span></div></div>
+      <div class="band"><span class="band__stub">PARIS</span><div class="band__track" data-marquee="-1" data-i18n="band2"><span class="band__item">Imprimé à Paris ✶</span><span class="band__item"><i>archive</i> 24—26 ✶</span><span class="band__item">Fait main (et sur Figma) ✶</span></div></div>
     </div>
 
     <!-- NOTE -->
-    <section class="section manifest" data-tone="dark" aria-label="Note d'intention">
+    <section class="section manifest" data-tone="dark" aria-label="Note">
       <article class="letter tex" id="letter">
         <svg class="clip" viewBox="0 0 30 80" aria-hidden="true"><use href="#paperclip"/></svg>
-        <div class="letter__head mono"><span>Note n°01</span><span>À l'attention de : vous (oui, vous)</span></div>
-        <p class="letter__text" id="manifest">
-          J'aime les images qu'on <span class="hl">garde.</span> Celles qu'on punaise au mur, qu'on découpe, qu'on screenshot à deux heures du matin. Mon terrain : le <span class="cut cut--ink">shooting</span>, le <span class="cut cut--red">feed</span>, l'<span class="cut cut--yellow">affiche</span> et le <span class="cut cut--blue">magazine</span>. Ma méthode : une <span class="circ">idée<svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M30 12 C80 -4 182 4 192 34 C202 66 118 80 56 74 C10 68 -6 40 20 22 C36 10 66 4 100 9"/></svg></span> claire, cadrée serré, répétée jusqu'à devenir <span class="hl" style="--hl:#f7a8a2">un style.</span>
-        </p>
-        <span class="letter__aside" style="left:7%;bottom:5%">(oui, j'imprime tout)</span>
+        <div class="letter__head mono" data-i18n="letter_head"><span>Note n°01</span><span>À l'attention de : vous (oui, vous)</span></div>
+        <p class="letter__text" id="manifest" data-i18n="letter_text">J'aime les images qu'on <span class="hl">garde.</span> Celles qu'on punaise au mur, qu'on découpe, qu'on screenshot à deux heures du matin. Mon terrain : le <span class="cut cut--ink">shooting</span>, le <span class="cut cut--red">feed</span>, l'<span class="cut cut--yellow">affiche</span> et le <span class="cut cut--blue">magazine</span>. Ma méthode : une <span class="circ">idée<svg data-draw viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M30 12 C80 -4 182 4 192 34 C202 66 118 80 56 74 C10 68 -6 40 20 22 C36 10 66 4 100 9"/></svg></span> claire, cadrée serré, répétée jusqu'à devenir <span class="hl" style="--hl:#f7a8a2">un style.</span></p>
+        <span class="letter__aside" style="left:7%;bottom:5%" data-i18n="letter_aside">(oui, j'imprime tout)</span>
         <div class="stamp stamp--ring" data-stamp="Anaïs Albersario · Archive 24—26 · Paris ·"></div>
       </article>
       <div class="facts">
-        <div class="fact"><span class="tape tape--t"></span><b data-count="4">0</b><span class="mono">mois chez EÏA Spa<br>à faire vivre un feed</span></div>
-        <div class="fact"><span class="tape tape--tr"></span><b data-count="16">0</b><span class="mono">jours de posts<br>planifiés au calendrier</span></div>
-        <div class="fact"><span class="tape tape--tl"></span><b data-count="10">0</b><span class="mono">dossiers ouverts<br>dans ce portfolio</span></div>
-        <div class="fact"><span class="tape tape--t"></span><b data-count="3">0</b><span class="mono">langues : français,<br>anglais, tagalog</span></div>
+        <div class="fact"><span class="tape tape--t"></span><b data-count="4">0</b><span class="mono" data-i18n="fact1">mois chez EÏA Spa<br>à faire vivre un feed</span></div>
+        <div class="fact"><span class="tape tape--tr"></span><b data-count="16">0</b><span class="mono" data-i18n="fact2">jours de posts<br>planifiés au calendrier</span></div>
+        <div class="fact"><span class="tape tape--tl"></span><b data-count="10">0</b><span class="mono" data-i18n="fact3">dossiers ouverts<br>dans ce portfolio</span></div>
+        <div class="fact"><span class="tape tape--t"></span><b data-count="3">0</b><span class="mono" data-i18n="fact4">langues : français,<br>anglais, tagalog</span></div>
       </div>
     </section>
 
     <!-- SOMMAIRE -->
     <section class="section toc" id="sommaire" data-tone="dark" aria-label="Sommaire">
       <div class="section-head">
-        <span class="mono">(02) — Sommaire</span>
-        <h2 data-lines><span class="line-reveal"><span>Sommaire</span></span></h2>
-        <span class="mono">10 dossiers<br>2024 → 2026</span>
+        <span class="mono" data-i18n="toc_k">(02) — Sommaire</span>
+        <h2 data-lines data-i18n="toc_h"><span class="line-reveal"><span>Sommaire</span></span></h2>
+        <span class="mono" data-i18n="toc_r">10 dossiers<br>2024 → 2026</span>
       </div>
       <div class="toc__page">
-        <span class="hand toc__aside">choisis ton dossier ↓</span>
+        <span class="hand toc__aside" data-i18n="toc_aside">choisis ton dossier ↓</span>
         <ol class="toc__list" id="toc"></ol>
       </div>
     </section>
     <div class="toc__preview" id="tocPreview" aria-hidden="true"><div class="imgs"></div><span class="pcap"></span></div>
 
-    <!-- DOSSIERS -->
-    <section class="dossiers" id="dossiers" aria-label="Les dossiers"></section>
+    <!-- LE CLASSEUR -->
+    <section class="section cabinet" id="classeur" data-tone="dark" aria-label="Dossiers">
+      <div class="section-head">
+        <span class="mono" data-i18n="cab_k">(03) — Le classeur</span>
+        <h2 data-lines data-i18n="cab_h"><span class="line-reveal"><span>Les dossiers</span></span></h2>
+        <span class="mono" data-i18n="cab_r">Clique sur un dossier<br>pour l'ouvrir</span>
+      </div>
+      <div class="folders" id="folders"></div>
+    </section>
 
     <!-- SUR LE FIL -->
-    <section class="section line" id="sur-le-fil" data-tone="light" aria-label="Affiches et édition">
+    <section class="section line" id="sur-le-fil" data-tone="light" aria-label="Affiches">
       <div class="section-head">
-        <span class="mono">(04) — Print</span>
-        <h2 data-lines><span class="line-reveal"><span>Sur le fil</span></span></h2>
-        <span class="mono">Affiches & édition,<br>séchées à l'air libre</span>
+        <span class="mono" data-i18n="line_k">(04) — Print</span>
+        <h2 data-lines data-i18n="line_h"><span class="line-reveal"><span>Sur le fil</span></span></h2>
+        <span class="mono" data-i18n="line_r">Affiches & édition,<br>séchées à l'air libre</span>
       </div>
       <div class="line__wrap" id="lineWrap" data-cursor="Glisse">
         <div class="line__track" id="lineTrack">
@@ -169,60 +164,60 @@
         </div>
       </div>
       <div class="line__hint">
-        <span class="hand">← attrape la corde et tire →</span>
-        <a href="projet.html?p=affiches" class="mono ulink" data-label="Affiches">Toutes les affiches →</a>
+        <span class="hand" data-i18n="line_hint">← attrape la corde et tire →</span>
+        <a href="projet.html?p=affiches" class="mono ulink" data-label="Affiches" data-i18n="line_all">Toutes les affiches →</a>
       </div>
     </section>
 
     <!-- QUI SUIS-JE -->
-    <section class="section about" id="a-propos" data-tone="dark" aria-label="Qui suis-je">
+    <section class="section about" id="a-propos" data-tone="dark" aria-label="À propos">
       <div class="section-head">
-        <span class="mono">(05) — À propos</span>
-        <h2 data-lines><span class="line-reveal"><span>Qui suis-je&nbsp;?</span></span></h2>
-        <span class="mono">Fiche d'identité<br>créative</span>
+        <span class="mono" data-i18n="about_k">(05) — À propos</span>
+        <h2 data-lines data-i18n="about_h"><span class="line-reveal"><span>Qui suis-je&nbsp;?</span></span></h2>
+        <span class="mono" data-i18n="about_r">Fiche d'identité<br>créative</span>
       </div>
 
       <article class="cert tex" id="cert">
         <div class="cert__head">
-          <h3 class="cert__title">Certificat<br>de créativité</h3>
-          <div class="mono" style="text-align:right">N° AA—2026—ESD<br>État : disponible<br>Délivré à Paris</div>
+          <h3 class="cert__title" data-i18n="cert_title">Certificat<br>de créativité</h3>
+          <div class="mono" style="text-align:right" data-i18n="cert_meta">N° AA—2026—ESD<br>État : disponible<br>Délivré à Paris</div>
         </div>
         <div class="cert__body">
           <div>
             <div class="fields">
-              <div class="field"><span class="mono">1a. Prénom</span><b>Anaïs</b></div>
-              <div class="field"><span class="mono">1b. Nom</span><b>Albersario</b></div>
-              <div class="field field--full"><span class="mono">2. Poste recherché</span><b>Alternance — Directrice artistique junior / Chargée de communication · dès sept. / oct. 2026</b></div>
-              <div class="field field--full"><span class="mono">3. Signes particuliers</span><p>Étudiante en 3<sup>e</sup> année de Bachelor Chef de Projet Digital. Obsédée par les identités de marque, les grilles bien posées et les détails que personne ne remarque (sauf moi). Créative, rigoureuse, regard affirmé.</p></div>
-              <div class="field field--full"><span class="mono">4. Parcours</span>
-                <ul class="tl">
+              <div class="field"><span class="mono" data-i18n="f_first">1a. Prénom</span><b>Anaïs</b></div>
+              <div class="field"><span class="mono" data-i18n="f_last">1b. Nom</span><b>Albersario</b></div>
+              <div class="field field--full"><span class="mono" data-i18n="f_pos_k">2. Poste recherché</span><b data-i18n="f_pos">Alternance — Directrice artistique junior / Chargée de communication · dès sept. / oct. 2026</b></div>
+              <div class="field field--full"><span class="mono" data-i18n="f_feat_k">3. Signes particuliers</span><p data-i18n="f_feat">Étudiante en 3<sup>e</sup> année de Bachelor Chef de Projet Digital. Obsédée par les identités de marque, les grilles bien posées et les détails que personne ne remarque (sauf moi). Créative, rigoureuse, regard affirmé.</p></div>
+              <div class="field field--full"><span class="mono" data-i18n="f_path_k">4. Parcours</span>
+                <ul class="tl" data-i18n="f_path">
                   <li><span class="mono">Avr.—Juil. 26</span><span><b>EÏA Spa — Stage chargée de com & assistante DA</b>Stratégie et identité de marque, contenus digital & print, réseaux sociaux.</span></li>
                   <li><span class="mono">Juil. 2025</span><span><b>HelpMe — Stage community manager</b></span></li>
                   <li><span class="mono">2024—2027</span><span><b>ESD — École Supérieure du Digital</b>Bachelor Chef de Projet Digital : UI, UX, création graphique, social media.</span></li>
                   <li><span class="mono">2024</span><span><b>Lycée Joseph Talma — Bac général</b></span></li>
                 </ul>
               </div>
-              <div class="field field--full"><span class="mono">5. Outils maîtrisés</span>
+              <div class="field field--full"><span class="mono" data-i18n="f_tools_k">5. Outils maîtrisés</span>
                 <div class="tool-chips"><span>Photoshop</span><span>InDesign</span><span>Illustrator</span><span>Figma</span><span>CapCut</span><span>Canva</span><span>WordPress</span></div>
               </div>
-              <div class="field field--2"><span class="mono">6. Langues</span><p>Français, natale<br>Anglais, B2<br>Tagalog, courant</p></div>
-              <div class="field field--2"><span class="mono">7. Qualités</span><p>Polyvalente<br>Curieuse<br>Autonome</p></div>
-              <div class="field field--2"><span class="mono">8. Hors écran</span><p>Chant<br>Ukulélé / guitare<br>Création de contenu</p></div>
+              <div class="field field--2"><span class="mono" data-i18n="f_lang_k">6. Langues</span><p data-i18n="f_lang">Français, natale<br>Anglais, B2<br>Tagalog, courant</p></div>
+              <div class="field field--2"><span class="mono" data-i18n="f_qual_k">7. Qualités</span><p data-i18n="f_qual">Polyvalente<br>Curieuse<br>Autonome</p></div>
+              <div class="field field--2"><span class="mono" data-i18n="f_off_k">8. Hors écran</span><p data-i18n="f_off">Chant<br>Ukulélé / guitare<br>Création de contenu</p></div>
             </div>
           </div>
           <div class="cert__photo">
             <figure class="pola">
               <span class="tape tape--t"></span>
-              <img src="media/moi/portrait.jpg" alt="Portrait d'Anaïs Albersario" loading="lazy">
+              <img src="media/moi/portrait.jpg" alt="Anaïs Albersario" loading="lazy">
               <figcaption>Anaïs, Paris</figcaption>
             </figure>
-            <div class="stamp stamp--ring" id="certStamp" data-stamp="Bon pour alternance · 2026 · Approuvé ·"></div>
+            <div class="stamp stamp--ring" id="certStamp" data-stamp="Bon pour alternance · 2026 · Approuvé ·" data-stamp-en="Approved · Work-study · 2026 ·"></div>
           </div>
         </div>
         <div class="cert__foot">
-          <span class="mono">Signature du titulaire</span>
+          <span class="mono" data-i18n="cert_sign_k">Signature du titulaire</span>
           <span class="cert__sign">Anaïs Albersario</span>
-          <a class="mono ulink" href="media/CV_Anais_Albersario.pdf" download>Télécharger le CV (PDF) ↓</a>
+          <a class="mono ulink" href="media/CV_Anais_Albersario.pdf" download data-i18n="cert_cv">Télécharger le CV (PDF) ↓</a>
         </div>
       </article>
     </section>
@@ -230,9 +225,9 @@
     <!-- CONTACT -->
     <section class="section contact" id="contact" data-tone="light" aria-label="Contact">
       <div class="section-head">
-        <span class="mono" style="color:rgba(251,248,241,.6)">(06) — Contact</span>
-        <h2 data-lines><span class="line-reveal"><span>On se</span></span><span class="line-reveal"><span>rencontre&nbsp;?</span></span></h2>
-        <span class="mono" style="color:rgba(251,248,241,.6)">Réponse sous 24 h<br>(promis)</span>
+        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="contact_k">(06) — Contact</span>
+        <h2 data-lines data-i18n="contact_h"><span class="line-reveal"><span>On se</span></span><span class="line-reveal"><span>rencontre&nbsp;?</span></span></h2>
+        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="contact_r">Réponse sous 24 h<br>(promis)</span>
       </div>
 
       <div class="form-wrap">
@@ -241,35 +236,35 @@
           <div class="form__top"><span data-today-inline>09/10/2026</span><span>AA — 26#01</span></div>
           <div class="form__head">
             <svg class="form__logo" viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg>
-            <div>Département des bonnes idées<br><b>Formulaire d'embauche</b></div>
+            <div data-i18n="form_dept">Département des bonnes idées<br><b>Formulaire d'embauche</b></div>
           </div>
-          <h3 class="form__title">Vous cherchez<br>une alternante ?</h3>
+          <h3 class="form__title" data-i18n="form_title">Vous cherchez<br>une alternante ?</h3>
 
           <fieldset>
-            <legend>1. Vous êtes :</legend>
+            <legend data-i18n="form_l1">1. Vous êtes :</legend>
             <div class="checks">
-              <label class="check"><input type="checkbox" name="who" value="une agence"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une agence</label>
-              <label class="check"><input type="checkbox" name="who" value="une marque"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une marque</label>
-              <label class="check"><input type="checkbox" name="who" value="un studio"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Un studio</label>
-              <label class="check"><input type="checkbox" name="who" value="autre chose de génial"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Autre (génial)</label>
+              <label class="check"><input type="checkbox" name="who" value="une agence" data-en-value="an agency"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_agency">Une agence</span></label>
+              <label class="check"><input type="checkbox" name="who" value="une marque" data-en-value="a brand"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_brand">Une marque</span></label>
+              <label class="check"><input type="checkbox" name="who" value="un studio" data-en-value="a studio"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_studio">Un studio</span></label>
+              <label class="check"><input type="checkbox" name="who" value="autre chose de génial" data-en-value="something awesome"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_other">Autre (génial)</span></label>
             </div>
           </fieldset>
           <fieldset>
-            <legend>2. Vous cherchez :</legend>
+            <legend data-i18n="form_l2">2. Vous cherchez :</legend>
             <div class="checks">
-              <label class="check"><input type="checkbox" name="what" value="une alternante en direction artistique"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une alternante en DA</label>
-              <label class="check"><input type="checkbox" name="what" value="une alternante en communication"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Une alternante en com</label>
-              <label class="check"><input type="checkbox" name="what" value="les deux (bonne réponse)"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span>Les deux (bonne réponse)</label>
+              <label class="check"><input type="checkbox" name="what" value="une alternante en direction artistique" data-en-value="a work-study student in art direction"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_ad">Une alternante en DA</span></label>
+              <label class="check"><input type="checkbox" name="what" value="une alternante en communication" data-en-value="a work-study student in communication"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_com">Une alternante en com</span></label>
+              <label class="check"><input type="checkbox" name="what" value="les deux (bonne réponse)" data-en-value="both (right answer)"><span class="box"><svg viewBox="0 0 32 32"><path d="M5 17 L13 25 L29 4"/></svg></span><span data-i18n="c_both">Les deux (bonne réponse)</span></label>
             </div>
           </fieldset>
-          <label class="field-line"><span>3. Votre nom & entreprise :</span><input type="text" name="name" autocomplete="off" placeholder="écrivez ici…"></label>
+          <label class="field-line"><span data-i18n="form_l3">3. Votre nom & entreprise :</span><input type="text" name="name" autocomplete="off" placeholder="écrivez ici…" data-i18n-ph="ph_name"></label>
 
           <div class="form__foot">
-            <p class="form__note">Nota : merci de ne remplir ce formulaire qu'une fois.<br>Les fautes de goût ne sont pas acceptées.</p>
-            <button type="submit" class="send" data-cursor="Envoyer">Envoyer le formulaire →</button>
+            <p class="form__note" data-i18n="form_note">Nota : merci de ne remplir ce formulaire qu'une fois.<br>Les fautes de goût ne sont pas acceptées.</p>
+            <button type="submit" class="send" data-cursor="Envoyer" data-i18n="form_send">Envoyer le formulaire →</button>
           </div>
-          <div class="stamp stamp--ring stamp--recu" id="recu" data-stamp="Reçu · Merci · À très vite ·"></div>
-          <p class="mono form__copy">Ce formulaire ouvre votre messagerie. Rien n'est envoyé sans vous.</p>
+          <div class="stamp stamp--ring stamp--recu" id="recu" data-stamp="Reçu · Merci · À très vite ·" data-stamp-en="Received · Thanks · Talk soon ·"></div>
+          <p class="mono form__copy" data-i18n="form_copy">Ce formulaire ouvre votre messagerie. Rien n'est envoyé sans vous.</p>
         </form>
 
         <div>
@@ -278,8 +273,8 @@
             <a href="https://www.linkedin.com/in/ana%C3%AFsalbersario" target="_blank" rel="noopener"><span class="mono">LinkedIn</span><span>Anaïs Albersario</span><span>↗</span></a>
             <a href="https://www.instagram.com/anaisalbersario" target="_blank" rel="noopener"><span class="mono">Instagram</span><span>@anaisalbersario</span><span>↗</span></a>
           </div>
-          <a class="cv-btn" href="media/CV_Anais_Albersario.pdf" download data-magnet>Mon CV ↓</a>
-          <br><span class="hand direct__aside">pas besoin de cocher, un mail suffit ;)</span>
+          <a class="cv-btn" href="media/CV_Anais_Albersario.pdf" download data-magnet data-i18n="cv">Mon CV ↓</a>
+          <br><span class="hand direct__aside" data-i18n="direct_aside">pas besoin de cocher, un mail suffit ;)</span>
         </div>
       </div>
     </section>
@@ -287,7 +282,7 @@
 
   <footer class="footer">
     <div class="footer__big" aria-hidden="true"><svg viewBox="0 0 155.05 108.06"><use href="#logo"/></svg><span>Anaïs Albersario</span></div>
-    <div class="footer__row mono">
+    <div class="footer__row mono" data-i18n="foot_row">
       <span>© 2026 Anaïs Albersario</span>
       <span>Imprimé à Paris</span>
       <span>Conçu, découpé & collé par Anaïs</span>
@@ -295,6 +290,9 @@
     </div>
   </footer>
 
+  <div class="fm" id="fm" role="dialog" aria-modal="true" aria-label="Dossier" data-lenis-prevent></div>
+
+  <script>I18N.apply()</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
