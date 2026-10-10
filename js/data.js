@@ -29,7 +29,8 @@ window.SITE = {
   email: "anaisalbersario22@gmail.com",
   instagram: "https://www.instagram.com/anaisalbersario",
   linkedin: "https://www.linkedin.com/in/ana%C3%AFsalbersario",
-  cv: "media/CV_Anais_Albersario.pdf"
+  cv: "media/cv/CV_Anais_Albersario_FR.pdf",
+  cvAts: "media/cv/CV_Anais_Albersario_ATS_FR.pdf"
 };
 
 window.PROJECTS = [

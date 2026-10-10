@@ -59,8 +59,6 @@
     "at_k": "(05) — The workshop", "at_h": "<span class=\"line-reveal\"><span>Your turn</span></span>", "at_r": "Make a poster<br>in my style",
     "at_hint": "click the poster to stamp it ✶", "at_t1": "01 — The photo", "at_t2": "02 — The colour", "at_t3": "03 — The layout", "at_t4": "04 — The title",
     "at_shuffle": "Shuffle ✶", "at_clear": "Clear the stamps", "at_dl": "Download the poster ↓",
-    "mm_k": "(06) — Coffee break", "mm_h": "<span class=\"line-reveal\"><span>Memory</span></span>", "mm_r": "Find the pairs,<br>the clock is ticking",
-    "mm_moves": "moves", "mm_time": "time", "mm_win": "Well done!", "mm_restart": "Play again ↺", "mm_hint": "hint: it all comes from my files",
     "m_files": "Files", "m_posters": "Posters", "m_about": "About", "m_contact": "Contact",
     "hero_blk1": "3<sup>rd</sup>-year student<br>at ESD, Paris.<br>I cut, I frame,<br>I paste — and I post.",
     "hero_blk2": "Looking for a <span class=\"hero__seal\">work-study<svg data-draw viewBox=\"0 0 200 80\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M28 14 C78 -2 176 2 192 32 C206 62 122 82 58 74 C10 68 -6 40 18 22 C34 10 66 4 98 8\"/></svg></span><br>position in art direction<br>or communication,<br>from Sept. / Oct. 2026.",
@@ -78,7 +76,7 @@
     "cab_k": "(02) — The cabinet", "cab_h": "<span class=\"line-reveal\"><span>The files</span></span>", "cab_r": "Click a folder<br>to open it",
     "line_k": "(03) — Print", "line_h": "<span class=\"line-reveal\"><span>On the line</span></span>", "line_r": "Posters & print,<br>air-dried",
     "line_hint": "← grab the line and pull →", "line_all": "All posters →",
-    "about_k": "(07) — About", "about_h": "<span class=\"line-reveal\"><span>Who am I?</span></span>", "about_r": "Creative<br>ID card",
+    "about_k": "(06) — About", "about_h": "<span class=\"line-reveal\"><span>Who am I?</span></span>", "about_r": "Creative<br>ID card",
     "cert_title": "Certificate<br>of creativity", "cert_meta": "No. AA—2026—ESD<br>Status: available<br>Issued in Paris",
     "f_first": "1a. First name", "f_last": "1b. Last name", "f_pos_k": "2. Position sought",
     "f_pos": "Work-study — Junior art director / Communication officer · from Sept. / Oct. 2026",
@@ -89,7 +87,7 @@
     "f_tools_k": "5. Tools mastered", "f_lang_k": "6. Languages", "f_lang": "French, native<br>English, B2<br>Tagalog, fluent",
     "f_qual_k": "7. Qualities", "f_qual": "Versatile<br>Curious<br>Autonomous", "f_off_k": "8. Off-screen", "f_off": "Singing<br>Ukulele / guitar<br>Content creation",
     "cert_sign_k": "Holder's signature", "cert_cv": "Download CV (PDF) ↓",
-    "contact_k": "(08) — Contact", "contact_h": "<span class=\"line-reveal\"><span>Shall we</span></span><span class=\"line-reveal\"><span>meet?</span></span>", "contact_r": "Reply within 24 h<br>(promise)",
+    "contact_k": "(07) — Contact", "contact_h": "<span class=\"line-reveal\"><span>Shall we</span></span><span class=\"line-reveal\"><span>meet?</span></span>", "contact_r": "Reply within 24 h<br>(promise)",
     "form_dept": "Department of good ideas<br><b>Hiring form</b>", "form_title": "Looking for<br>a work-study?",
     "form_l1": "1. You are:", "form_l2": "2. You're looking for:", "form_l3": "3. Your name & company:",
     "c_agency": "An agency", "c_brand": "A brand", "c_studio": "A studio", "c_other": "Other (awesome)",
@@ -97,7 +95,7 @@
     "form_note": "Note: please fill in this form only once.<br>Bad taste will not be accepted.", "form_send": "Send the form →",
     "form_copy": "This form opens your email app. Nothing is sent without you.",
     "ph_name": "write here…",
-    "cv": "My CV ↓", "direct_aside": "no need to tick boxes, an email will do ;)",
+    "cv": "My CV ↓", "cert_ats": "ATS version ↓", "cv_ats": "ATS version (plain text, for recruiting software) ↓", "direct_aside": "no need to tick boxes, an email will do ;)",
     "foot_row": "<span>© 2026 Anaïs Albersario</span><span>Printed in Paris</span><span>Designed, cut & pasted by Anaïs</span><a href=\"#top\">Back to top ↑</a>"
   };
 
@@ -114,6 +112,7 @@
       scope.querySelectorAll("[data-i18n]").forEach((el) => { const v = EN_HTML[el.dataset.i18n]; if (v != null) el.innerHTML = v; });
       scope.querySelectorAll("[data-i18n-ph]").forEach((el) => { el.placeholder = EN_HTML[el.dataset.i18nPh] || el.placeholder; });
       scope.querySelectorAll("[data-en-value]").forEach((el) => { el.value = el.dataset.enValue; });
+      scope.querySelectorAll("[data-cv]").forEach((el) => { el.href = el.getAttribute("href").replace("_FR.pdf", "_EN.pdf"); });
       scope.querySelectorAll("[data-en-title]").forEach((el) => { document.title = el.dataset.enTitle; });
     },
     set(l) { store.set(l); }

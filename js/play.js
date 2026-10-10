@@ -1,6 +1,6 @@
 /* =========================================================
    Les jeux : ticket à gratter, platine, atelier d'affiche,
-   memory, confettis. (Accueil uniquement)
+   confettis. (Accueil uniquement)
    ========================================================= */
 (function () {
   const { $, $$, esc } = App;
@@ -92,14 +92,14 @@
     const record = $("#record"), arm = $("#arm"); if (!record) return;
     const TRACKS = {
       A: [
-        { n: "A1", t: "Écouter le brief", t_en: "Listen to the brief", d: "2:14", p: "Je pose les questions bêtes avant les idées brillantes.", p_en: "I ask the silly questions before the bright ideas.", f: [220, 277, 330] },
-        { n: "A2", t: "Le moodboard", t_en: "The moodboard", d: "3:02", p: "Pinterest, archives, magazines, rue : je récolte avant de choisir.", p_en: "Pinterest, archives, magazines, the street: I collect before I choose.", f: [196, 247, 294] },
-        { n: "A3", t: "Le concept", t_en: "The concept", d: "2:47", p: "Une idée qu'on peut dire en une phrase. Sinon, on recommence.", p_en: "An idea you can say in one sentence. Otherwise, start again.", f: [175, 220, 262] }
+        { n: "A1", t: "Écouter le brief", t_en: "Listen to the brief", d: "2:14", p: "Je pose les questions bêtes avant les idées brillantes.", p_en: "I ask the silly questions before the bright ideas." },
+        { n: "A2", t: "Le moodboard", t_en: "The moodboard", d: "3:02", p: "Pinterest, archives, magazines, rue : je récolte avant de choisir.", p_en: "Pinterest, archives, magazines, the street: I collect before I choose." },
+        { n: "A3", t: "Le concept", t_en: "The concept", d: "2:47", p: "Une idée qu'on peut dire en une phrase. Sinon, on recommence.", p_en: "An idea you can say in one sentence. Otherwise, start again." }
       ],
       B: [
-        { n: "B1", t: "Shooting & fabrication", t_en: "Shoot & make", d: "4:10", p: "Lumière, stylisme, pose : je dirige, je cadre, je corrige.", p_en: "Light, styling, posing: I direct, frame and correct.", f: [233, 294, 349] },
-        { n: "B2", t: "Mise en page", t_en: "Layout", d: "3:33", p: "Grille, typo, rythme. Le détail qui change tout.", p_en: "Grid, type, rhythm. The detail that changes everything.", f: [208, 262, 311] },
-        { n: "B3", t: "Publication", t_en: "Publishing", d: "1:58", p: "Calendrier, légendes, analyse : une image doit vivre.", p_en: "Calendar, captions, analysis: an image has to live.", f: [247, 311, 370] }
+        { n: "B1", t: "Shooting & fabrication", t_en: "Shoot & make", d: "4:10", p: "Lumière, stylisme, pose : je dirige, je cadre, je corrige.", p_en: "Light, styling, posing: I direct, frame and correct." },
+        { n: "B2", t: "Mise en page", t_en: "Layout", d: "3:33", p: "Grille, typo, rythme. Le détail qui change tout.", p_en: "Grid, type, rhythm. The detail that changes everything." },
+        { n: "B3", t: "Publication", t_en: "Publishing", d: "1:58", p: "Calendrier, légendes, analyse : une image doit vivre.", p_en: "Calendar, captions, analysis: an image has to live." }
       ]
     };
     const list = $("#tracks"), now = $("#now"), led = $("#led"), playBtn = $("#play"), sideLbl = $("#recSide");
@@ -112,8 +112,9 @@
     };
     renderList();
 
-    /* --- son (WebAudio, coupé par défaut) --- */
-    let ac = null, master = null, crackle = null, padTimer = null, soundOn = false;
+    /* --- son : ta voix (media/voix/A1.mp3…) + craquement de vinyle --- */
+    let ac = null, master = null, crackle = null, soundOn = true, voice = null;
+    const VOICE_DIR = "media/voix/";
     const initAudio = () => {
       if (ac) return;
       ac = new (window.AudioContext || window.webkitAudioContext)();
@@ -125,26 +126,31 @@
       const hp = ac.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 900;
       crackle.connect(hp).connect(master); crackle.start();
     };
-    const chord = (freqs) => {
-      if (!ac || !soundOn) return;
-      const t = ac.currentTime;
-      freqs.forEach((f, i) => {
-        const o = ac.createOscillator(), g = ac.createGain(), lp = ac.createBiquadFilter();
-        o.type = i ? "triangle" : "sine"; o.frequency.value = f * (rpm === 45 ? 1.335 : 1);
-        lp.type = "lowpass"; lp.frequency.value = 1400;
-        g.gain.setValueAtTime(0, t + i * 0.18); g.gain.linearRampToValueAtTime(0.09, t + i * 0.18 + 0.05); g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.18 + 2.2);
-        o.connect(lp).connect(g).connect(master); o.start(t + i * 0.18); o.stop(t + i * 0.18 + 2.4);
-      });
+    const stopVoice = () => { if (voice) { voice.pause(); voice = null; } };
+    const playVoice = (tr) => {
+      stopVoice();
+      if (!soundOn) return;
+      const tryFile = (name, fallback) => {
+        const a = new Audio(VOICE_DIR + name + ".mp3");
+        a.playbackRate = rpm === 45 ? 1.25 : 1;
+        a.preservesPitch = false; a.mozPreservesPitch = false; a.webkitPreservesPitch = false; // 45 tours = voix plus aiguë
+        a.addEventListener("error", () => { if (fallback) tryFile(fallback); }, { once: true });
+        a.addEventListener("ended", () => { if (voice === a) voice = null; });
+        voice = a;
+        a.play().catch(() => {});
+      };
+      EN ? tryFile(tr.n + "-en", tr.n) : tryFile(tr.n);
     };
     const updateSound = () => {
       if (!ac) return;
-      master.gain.setTargetAtTime(soundOn && playing ? 0.9 : 0, ac.currentTime, 0.15);
-      clearInterval(padTimer);
-      if (soundOn && playing && cur >= 0) { const f = TRACKS[side][cur].f; chord(f); padTimer = setInterval(() => chord(f), 2400); }
+      master.gain.setTargetAtTime(soundOn && playing ? 0.35 : 0, ac.currentTime, 0.15);
     };
-    $("#sound").addEventListener("click", (e) => {
-      soundOn = !soundOn; e.currentTarget.setAttribute("aria-pressed", soundOn);
-      if (soundOn) { initAudio(); ac.resume && ac.resume(); }
+    const soundBtn = $("#sound");
+    soundBtn.setAttribute("aria-pressed", "true");
+    soundBtn.addEventListener("click", () => {
+      soundOn = !soundOn; soundBtn.setAttribute("aria-pressed", soundOn);
+      if (soundOn) { initAudio(); ac.resume && ac.resume(); if (playing && cur >= 0) playVoice(TRACKS[side][cur]); }
+      else stopVoice();
       updateSound();
     });
 
@@ -164,17 +170,20 @@
       now.innerHTML = `<span class="mono">${EN ? "Now playing" : "En lecture"} — ${tr.n} · ${tr.d}</span><h3>${esc(L(tr, "t"))}</h3><p></p>`;
       if (anim) gsap.from($("h3", now), { yPercent: 60, opacity: 0, duration: 0.8, ease: "expo.out" });
       typeText($("p", now), L(tr, "p"));
+      if (soundOn) { initAudio(); ac.resume && ac.resume(); }
+      playVoice(tr);
       updateSound();
     };
     const stop = () => {
       playing = false; setArm(ARM_REST); led.classList.remove("is-on"); playBtn.textContent = "▶";
-      updateSound();
+      stopVoice(); updateSound();
     };
     list.addEventListener("click", (e) => { const b = e.target.closest("[data-tr]"); if (b) play(+b.dataset.tr); });
     playBtn.addEventListener("click", () => (playing ? stop() : play(cur >= 0 ? cur : 0)));
     $$("[data-rpm]").forEach((b) => b.addEventListener("click", () => {
       rpm = +b.dataset.rpm; $$("[data-rpm]").forEach((x) => x.setAttribute("aria-pressed", x === b));
-      $("span", led).textContent = rpm === 33 ? "33⅓" : "45"; updateSound();
+      $("span", led).textContent = rpm === 33 ? "33⅓" : "45";
+      if (voice) voice.playbackRate = rpm === 45 ? 1.25 : 1;
     }));
     $$("[data-side]").forEach((b) => b.addEventListener("click", () => {
       if (b.dataset.side === side) return;
@@ -224,8 +233,9 @@
         master.gain.setTargetAtTime(Math.min(1.6, 0.3 + Math.abs(vel) * 0.08), ac.currentTime, 0.02);
         crackle.playbackRate.setTargetAtTime(Math.max(0.2, Math.min(3, 1 + vel * 0.12)), ac.currentTime, 0.02);
       }
+      if (voice) voice.playbackRate = Math.max(0.25, Math.min(3, Math.abs(1 + vel * 0.1)));
     });
-    record.addEventListener("pointerup", () => { grabbing = false; record.classList.remove("is-grab"); if (crackle) crackle.playbackRate.setTargetAtTime(1, ac.currentTime, 0.1); updateSound(); });
+    record.addEventListener("pointerup", () => { grabbing = false; record.classList.remove("is-grab"); if (crackle) crackle.playbackRate.setTargetAtTime(1, ac.currentTime, 0.1); if (voice) voice.playbackRate = rpm === 45 ? 1.25 : 1; updateSound(); });
 
     let vis = false;
     new IntersectionObserver(([en]) => (vis = en.isIntersecting)).observe(record);
@@ -335,49 +345,6 @@
       const r = poster.getBoundingClientRect(); App.confetti(r.left + r.width / 2, r.top + r.height / 3, 40);
     });
     apply();
-  })();
-
-  /* =======================================================
-     MEMORY
-     ======================================================= */
-  (function memory() {
-    const board = $("#mem"); if (!board) return;
-    const PICS = ["media/lab/P1166161.jpg", "media/affiches/maroc.jpg", "media/magazine/couverture.jpg", "media/eia/post_02-07-5.jpg", "media/nda/9302.jpg", "media/rouge/IMG_5206.jpg"];
-    let first = null, lock = false, moves = 0, found = 0, t0 = 0, timer = null;
-    const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
-    const deal = () => {
-      clearInterval(timer); t0 = 0; moves = 0; found = 0; first = null; lock = false;
-      $("#memMoves").textContent = "0"; $("#memTime").textContent = "0:00"; $("#memWin").classList.remove("is-on");
-      const deck = [...PICS, ...PICS].map((src, i) => ({ src, k: PICS.indexOf(src), r: Math.random() })).sort((a, b) => a.r - b.r);
-      board.innerHTML = deck.map((c, i) => `<button type="button" class="mem__card" data-k="${c.k}" aria-label="carte ${i + 1}">
-        <span class="face face--back" data-n="${String(i + 1).padStart(2, "0")}"><svg viewBox="0 0 155.05 108.06"><use href="#logo"/></svg></span>
-        <span class="face face--front"><img src="${c.src}" alt="" loading="lazy"></span></button>`).join("");
-      if (anim) gsap.from(".mem__card", { y: -120, rotation: () => gsap.utils.random(-30, 30), opacity: 0, duration: 0.8, ease: "back.out(1.6)", stagger: 0.04, clearProps: "transform,opacity" });
-    };
-    board.addEventListener("click", (e) => {
-      const c = e.target.closest(".mem__card");
-      if (!c || lock || c === first || c.classList.contains("is-done")) return;
-      if (!t0) { t0 = Date.now(); timer = setInterval(() => ($("#memTime").textContent = fmt(Math.floor((Date.now() - t0) / 1000))), 500); }
-      c.classList.add("is-flip");
-      if (!first) { first = c; return; }
-      moves++; $("#memMoves").textContent = moves;
-      if (first.dataset.k === c.dataset.k) {
-        [first, c].forEach((x) => { x.classList.add("is-done"); if (anim) gsap.fromTo(x, { scale: 1.08 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.4)", clearProps: "transform" }); });
-        first = null; found++;
-        if (found === PICS.length) {
-          clearInterval(timer);
-          const txt = T("mm_wintxt").replace("{p}", PICS.length).replace("{m}", moves).replace("{t}", fmt(Math.floor((Date.now() - t0) / 1000)));
-          $("#memWinTxt").textContent = txt; $("#memWin").classList.add("is-on");
-          const r = board.getBoundingClientRect(); App.confetti(r.left + r.width / 2, r.top + r.height / 2, 90);
-          if (anim) gsap.from("#memWin", { scale: 0.5, rotation: -12, opacity: 0, duration: 0.8, ease: "back.out(2)" });
-        }
-      } else {
-        lock = true; const a = first; first = null;
-        setTimeout(() => { a.classList.remove("is-flip"); c.classList.remove("is-flip"); lock = false; if (anim) gsap.fromTo([a, c], { x: -4 }, { x: 0, duration: 0.4, ease: "elastic.out(1, 0.3)", clearProps: "transform" }); }, 850);
-      }
-    });
-    $("#memRestart").addEventListener("click", deal);
-    deal();
   })();
 
   /* =======================================================

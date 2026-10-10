@@ -591,35 +591,9 @@ a:hover > .roll > span, button:hover > .roll > span, .roll:hover > span { transf
 .sticker b { font-family: var(--f-title); font-weight: 400; font-size: 34px; line-height: 1; }
 .folder__front, .folder__back { outline: 1px solid rgba(20,18,18,.1); outline-offset: -1px; }
 
-/* =========================================================
-   TEXTURES : papier froissé, kraft, plastique
-   ========================================================= */
-:root { --crumple: url("../media/tex/crumple.svg"); --kraftfib: url("../media/tex/fibers.svg"); }
-.hero, .manifest, .cabinet, .line, .about, .atelier-sec, .memory-sec, .p-hero, .p-body,
-.letter, .fact, .cert, .form, .folder__front, .fm__page, .fm__face--front, .info-sheet, .p-note, .quote, .ticket__main, .poster, .mem__card .face--front {
-  background-image: var(--crumple); background-blend-mode: multiply; background-size: 700px;
-}
-.line { background-size: 900px; }
-.folder__back, .fm__right, .fm__face--back, .folder-back, .folder-front, .kraft, .mem__card .face--back, .tt__plinth, .lp-sleeve {
-  background-image: var(--kraftfib); background-blend-mode: multiply; background-size: 520px;
-}
-.contact { background-image: var(--crumple); background-blend-mode: soft-light; background-size: 700px; }
-.platine-sec { background-color: #1b1714; background-image: var(--crumple); background-blend-mode: multiply; background-size: 700px; }
-
-/* pochette plastique */
-.plastic { position: relative; }
-.plastic::before { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: inherit;
-  background: linear-gradient(112deg, transparent 18%, rgba(255,255,255,.32) 30%, rgba(255,255,255,.05) 37%, transparent 44%, transparent 62%, rgba(255,255,255,.18) 70%, transparent 77%), linear-gradient(200deg, rgba(255,255,255,.22), transparent 35%);
-  mix-blend-mode: screen; transition: background-position .8s var(--ease-out); background-size: 200% 100%, 100% 100%; background-position: 0 0, 0 0; }
-.plastic::after { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; background: var(--crumple) 0 0 / 420px; mix-blend-mode: overlay; opacity: .5; }
-.plastic:hover::before { background-position: -60% 0, 0 0; }
-
-/* scotch texturé */
-.tape { background-image: linear-gradient(90deg, rgba(255,255,255,.28), transparent 40%, rgba(255,255,255,.2)), var(--crumple); background-size: 100% 100%, 300px; background-blend-mode: normal, multiply; }
-
 /* déchirures entre sections */
 .line { -webkit-mask: var(--torn) top / 400px 16px repeat-x, var(--torn-b) bottom / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 30px) no-repeat; mask: var(--torn) top / 400px 16px repeat-x, var(--torn-b) bottom / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 30px) no-repeat; margin: -8px 0; position: relative; z-index: 2; }
-.platine-sec { -webkit-mask: var(--torn) top / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 15px) no-repeat; mask: var(--torn) top / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 15px) no-repeat; margin-top: -8px; position: relative; z-index: 2; }
+.platine-sec { background-color: #1b1714; -webkit-mask: var(--torn) top / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 15px) no-repeat; mask: var(--torn) top / 400px 16px repeat-x, linear-gradient(#000 0 0) 0 15px / 100% calc(100% - 15px) no-repeat; margin-top: -8px; position: relative; z-index: 2; }
 
 /* =========================================================
    FEED EÏA : téléphone + pochettes
@@ -702,10 +676,8 @@ a:hover > .roll > span, button:hover > .roll > span, .roll:hover > span { transf
 .strip__rail { margin: 0 calc(-1 * var(--gutter)); padding: 20px var(--gutter) 30px; overflow: hidden; cursor: grab; touch-action: pan-y; user-select: none; }
 .strip__rail.is-drag { cursor: grabbing; }
 .strip__track { display: flex; gap: clamp(16px, 2vw, 30px); width: max-content; align-items: center; will-change: transform; }
-.sleeve { position: relative; flex: none; width: clamp(220px, 22vw, 330px); padding: 10px; border-radius: 4px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.6); box-shadow: 0 24px 40px -22px rgba(0,0,0,.5), inset 0 0 0 1px rgba(0,0,0,.05); transition: transform .5s var(--ease-out); cursor: zoom-in; }
+.sleeve { position: relative; flex: none; width: clamp(220px, 22vw, 330px); padding: 8px; background: var(--white); box-shadow: 0 24px 40px -22px rgba(0,0,0,.5); transition: transform .5s var(--ease-out); cursor: zoom-in; }
 .sleeve img { width: 100%; display: block; pointer-events: none; }
-.sleeve::before { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: 4px; background: linear-gradient(112deg, transparent 18%, rgba(255,255,255,.32) 30%, rgba(255,255,255,.05) 37%, transparent 44%, transparent 62%, rgba(255,255,255,.18) 70%, transparent 77%), linear-gradient(200deg, rgba(255,255,255,.22), transparent 35%); mix-blend-mode: screen; }
-.sleeve::after { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: 4px; background: var(--crumple) 0 0 / 420px; mix-blend-mode: overlay; opacity: .45; }
 .sleeve__n { position: absolute; left: 14px; bottom: 14px; z-index: 6; background: var(--white); color: var(--ink); padding: 3px 6px; font-size: 10px; }
 .strips--stories .sleeve { width: clamp(170px, 15vw, 230px); }
 .strip__end { flex: none; font-size: 30px; padding: 0 40px; color: var(--accent); }
@@ -829,27 +801,8 @@ a:hover > .roll > span, button:hover > .roll > span, .roll:hover > span { transf
 .btn--red { background: var(--red); border-color: var(--red); }
 @media (max-width: 900px) { .atelier { grid-template-columns: 1fr; } .tool__thumbs { grid-template-columns: repeat(3, 1fr); } }
 
-/* =========================================================
-   MEMORY
-   ========================================================= */
-.memory-sec { background-color: #d8e2d0; }
-.memory { display: grid; grid-template-columns: 1fr 260px; gap: clamp(26px, 4vw, 60px); align-items: start; }
-.mem__board { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.4vw, 20px); perspective: 1200px; }
-.mem__card { position: relative; aspect-ratio: 4/5; transform-style: preserve-3d; transition: transform .6s var(--ease-out); cursor: pointer; }
-.mem__card.is-flip, .mem__card.is-done { transform: rotateY(180deg); }
-.mem__card .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; overflow: hidden; box-shadow: 0 16px 30px -18px rgba(0,0,0,.5); }
-.mem__card .face--back { background-color: var(--kraft); display: grid; place-items: center; }
-.mem__card .face--back svg { width: 46%; fill: rgba(122,31,18,.75); filter: url(#ink); }
-.mem__card .face--back::after { content: attr(data-n); position: absolute; left: 8px; top: 6px; font-family: var(--f-mono); font-size: 10px; color: #3a2a18; }
-.mem__card .face--front { transform: rotateY(180deg); background-color: var(--white); padding: 6px 6px 22px; }
-.mem__card .face--front img { width: 100%; height: 100%; object-fit: cover; }
-.mem__card.is-done .face--front { box-shadow: 0 0 0 3px var(--red), 0 16px 30px -18px rgba(0,0,0,.5); }
-.mem__card:hover:not(.is-flip):not(.is-done) { transform: translateY(-6px) rotate(-1.5deg); }
-.mem__panel { position: sticky; top: 100px; display: grid; gap: 16px; }
-.mem__stat { border-top: 1px solid currentColor; padding-top: 8px; }
-.mem__stat b { display: block; font-family: var(--f-title); font-weight: 400; font-size: 64px; line-height: .85; letter-spacing: -.05em; }
-.mem__win { display: none; background: var(--white); padding: 16px; rotate: -2deg; box-shadow: 0 20px 40px -24px rgba(0,0,0,.5); }
-.mem__win.is-on { display: block; }
-.mem__win .t { font-size: 40px; letter-spacing: -.04em; display: block; }
-@media (max-width: 900px) { .memory { grid-template-columns: 1fr; } .mem__board { grid-template-columns: repeat(3, 1fr); } .mem__panel { position: static; grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .tt__btn { width: 36px; height: 36px; font-size: 10px; } .tt__btn--play { width: 46px; height: 46px; } .tt__controls { gap: 5px; right: 4%; bottom: 5%; } .tt__platter { width: 58%; } }
+
+.cv-links { display: inline-flex; gap: 18px; flex-wrap: wrap; }
+.cv-ats { display: inline-flex; margin-top: 14px; color: rgba(251,248,241,.7); }
+.cv-ats:hover { color: var(--red); }
