@@ -92,14 +92,14 @@
     const record = $("#record"), arm = $("#arm"); if (!record) return;
     const TRACKS = {
       A: [
-        { n: "A1", t: "Écouter le brief", t_en: "Listen to the brief", d: "2:14", p: "Je pose les questions bêtes avant les idées brillantes.", p_en: "I ask the silly questions before the bright ideas." },
-        { n: "A2", t: "Le moodboard", t_en: "The moodboard", d: "3:02", p: "Pinterest, archives, magazines, rue : je récolte avant de choisir.", p_en: "Pinterest, archives, magazines, the street: I collect before I choose." },
-        { n: "A3", t: "Le concept", t_en: "The concept", d: "2:47", p: "Une idée qu'on peut dire en une phrase. Sinon, on recommence.", p_en: "An idea you can say in one sentence. Otherwise, start again." }
+        { n: "A1", t: "Écouter le brief", t_en: "Listen to the brief", d: "0:04", p: "Je pose les questions bêtes avant les idées brillantes.", p_en: "I ask the silly questions before the bright ideas." },
+        { n: "A2", t: "Le moodboard", t_en: "The moodboard", d: "0:15", p: "Pinterest, archives, magazines, rue : je récolte avant de choisir.", p_en: "Pinterest, archives, magazines, the street: I collect before I choose." },
+        { n: "A3", t: "Le concept", t_en: "The concept", d: "0:09", p: "Une idée qu'on peut dire en une phrase. Sinon, on recommence.", p_en: "An idea you can say in one sentence. Otherwise, start again." }
       ],
       B: [
-        { n: "B1", t: "Shooting & fabrication", t_en: "Shoot & make", d: "4:10", p: "Lumière, stylisme, pose : je dirige, je cadre, je corrige.", p_en: "Light, styling, posing: I direct, frame and correct." },
-        { n: "B2", t: "Mise en page", t_en: "Layout", d: "3:33", p: "Grille, typo, rythme. Le détail qui change tout.", p_en: "Grid, type, rhythm. The detail that changes everything." },
-        { n: "B3", t: "Publication", t_en: "Publishing", d: "1:58", p: "Calendrier, légendes, analyse : une image doit vivre.", p_en: "Calendar, captions, analysis: an image has to live." }
+        { n: "B1", t: "Shooting & fabrication", t_en: "Shoot & make", d: "0:11", p: "Lumière, stylisme, pose : je dirige, je cadre, je corrige.", p_en: "Light, styling, posing: I direct, frame and correct." },
+        { n: "B2", t: "Mise en page", t_en: "Layout", d: "0:15", p: "Grille, typo, rythme. Le détail qui change tout.", p_en: "Grid, type, rhythm. The detail that changes everything." },
+        { n: "B3", t: "Publication", t_en: "Publishing", d: "0:26", p: "Calendrier, légendes, analyse : une image doit vivre.", p_en: "Calendar, captions, analysis: an image has to live." }
       ]
     };
     const list = $("#tracks"), now = $("#now"), led = $("#led"), playBtn = $("#play"), sideLbl = $("#recSide");
@@ -131,7 +131,7 @@
       stopVoice();
       if (!soundOn) return;
       const tryFile = (name, fallback) => {
-        const a = new Audio(VOICE_DIR + name + ".mp3");
+        const a = new Audio(VOICE_DIR + name + ".m4a");
         a.playbackRate = rpm === 45 ? 1.25 : 1;
         a.preservesPitch = false; a.mozPreservesPitch = false; a.webkitPreservesPitch = false; // 45 tours = voix plus aiguë
         a.addEventListener("error", () => { if (fallback) tryFile(fallback); }, { once: true });

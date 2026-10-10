@@ -1,4 +1,3 @@
-Mets ici tes enregistrements pour la platine (format MP3) :
-A1.mp3  A2.mp3  A3.mp3  B1.mp3  B2.mp3  B3.mp3
-Version anglaise (facultatif) : A1-en.mp3, A2-en.mp3, etc.
-Sans fichier, la platine marche quand même, en silence.
+Tes enregistrements pour la platine (format M4A) :
+A1.m4a A2.m4a A3.m4a (face A) / B1.m4a B2.m4a B3.m4a (face B)
+Version anglaise (facultatif) : A1-en.m4a, etc.
