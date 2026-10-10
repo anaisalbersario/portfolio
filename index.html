@@ -59,6 +59,7 @@
     <div>
       <a class="t" href="#classeur" data-i18n="m_files">Dossiers</a>
       <a class="t" href="#sur-le-fil" data-i18n="m_posters">Affiches</a>
+      <a class="t" href="#atelier" data-i18n="m_play">Jouer</a>
       <a class="t" href="#a-propos" data-i18n="m_about">Qui suis-je</a>
       <a class="t" href="#contact" data-i18n="m_contact">Contact</a>
       <span class="lang mono" data-lang></span>
@@ -125,26 +126,26 @@
         <div class="fact"><span class="tape tape--tl"></span><b data-count="10">0</b><span class="mono" data-i18n="fact3">dossiers ouverts<br>dans ce portfolio</span></div>
         <div class="fact"><span class="tape tape--t"></span><b data-count="3">0</b><span class="mono" data-i18n="fact4">langues : français,<br>anglais, tagalog</span></div>
       </div>
-    </section>
-
-    <!-- SOMMAIRE -->
-    <section class="section toc" id="sommaire" data-tone="dark" aria-label="Sommaire">
-      <div class="section-head">
-        <span class="mono" data-i18n="toc_k">(02) — Sommaire</span>
-        <h2 data-lines data-i18n="toc_h"><span class="line-reveal"><span>Sommaire</span></span></h2>
-        <span class="mono" data-i18n="toc_r">10 dossiers<br>2024 → 2026</span>
+      <div class="ticket-wrap">
+        <span class="hand ticket__aside" data-i18n="tk_aside">gratte, c'est gratuit ↓</span>
+        <div class="ticket" id="ticket">
+          <div class="ticket__stub mono" data-i18n="tk_stub">N° AA-2026<br>Loterie<br>des talents</div>
+          <div class="ticket__main">
+            <div class="ticket__top"><span class="t" data-i18n="tk_title">Ticket à gratter</span><span class="mono" data-i18n="tk_valid">Valable sept. / oct. 2026</span></div>
+            <div class="ticket__zone">
+              <div class="ticket__prize"><span class="mono" data-i18n="tk_win_k">Félicitations !</span><b class="t" data-i18n="tk_win">Vous avez gagné<br>une alternante.</b><span class="hand" data-i18n="tk_win_s">(motivée, créative, dispo en septembre)</span></div>
+              <canvas class="ticket__scratch" id="scratch" data-cursor="Gratte"></canvas>
+            </div>
+            <div class="ticket__foot mono"><span data-i18n="tk_foot1">Grattez la zone argentée</span><span data-i18n="tk_foot2">1 chance sur 1</span></div>
+          </div>
+        </div>
       </div>
-      <div class="toc__page">
-        <span class="hand toc__aside" data-i18n="toc_aside">choisis ton dossier ↓</span>
-        <ol class="toc__list" id="toc"></ol>
-      </div>
     </section>
-    <div class="toc__preview" id="tocPreview" aria-hidden="true"><div class="imgs"></div><span class="pcap"></span></div>
 
     <!-- LE CLASSEUR -->
     <section class="section cabinet" id="classeur" data-tone="dark" aria-label="Dossiers">
       <div class="section-head">
-        <span class="mono" data-i18n="cab_k">(03) — Le classeur</span>
+        <span class="mono" data-i18n="cab_k">(02) — Le classeur</span>
         <h2 data-lines data-i18n="cab_h"><span class="line-reveal"><span>Les dossiers</span></span></h2>
         <span class="mono" data-i18n="cab_r">Clique sur un dossier<br>pour l'ouvrir</span>
       </div>
@@ -154,7 +155,7 @@
     <!-- SUR LE FIL -->
     <section class="section line" id="sur-le-fil" data-tone="light" aria-label="Affiches">
       <div class="section-head">
-        <span class="mono" data-i18n="line_k">(04) — Print</span>
+        <span class="mono" data-i18n="line_k">(03) — Print</span>
         <h2 data-lines data-i18n="line_h"><span class="line-reveal"><span>Sur le fil</span></span></h2>
         <span class="mono" data-i18n="line_r">Affiches & édition,<br>séchées à l'air libre</span>
       </div>
@@ -169,10 +170,95 @@
       </div>
     </section>
 
+    <!-- LA PLATINE -->
+    <section class="section platine-sec" id="platine" data-tone="light" aria-label="Ma méthode">
+      <div class="section-head">
+        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="pl_k">(04) — Ma méthode</span>
+        <h2 data-lines data-i18n="pl_h"><span class="line-reveal"><span>La platine</span></span></h2>
+        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="pl_r">Pose le bras<br>sur un sillon</span>
+      </div>
+      <div class="platine">
+        <div class="lp">
+          <div class="lp-sleeve">
+            <div class="lp__head"><span class="t" data-i18n="pl_lp">Méthode<br>LP — 2026</span><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg></div>
+            <div class="lp__side" role="group"><button type="button" data-side="A" aria-pressed="true">Face A</button><button type="button" data-side="B" aria-pressed="false">Face B</button></div>
+            <ol class="tracks" id="tracks"></ol>
+            <span class="hand lp__hint" data-i18n="pl_hint">choisis un morceau, ou attrape le bras →</span>
+          </div>
+        </div>
+        <div class="turntable">
+          <div class="tt__plinth">
+            <div class="tt__platter"><div class="tt__record" id="record" data-cursor="Scratch"><div class="tt__label"><svg viewBox="0 0 155.05 108.06" aria-hidden="true"><use href="#logo"/></svg><span id="recSide">Face A</span></div></div></div>
+            <div class="tt__arm" id="arm" data-cursor="Attrape">
+              <svg viewBox="0 0 40 125" aria-hidden="true"><circle cx="20" cy="15" r="13" fill="#c9c9cc" stroke="#8e8e93" stroke-width="2"/><circle cx="20" cy="15" r="5" fill="#5a5a5e"/><path d="M20 15 L20 92 Q20 104 12 112" fill="none" stroke="#b8b8bd" stroke-width="4.5" stroke-linecap="round"/><rect x="2" y="108" width="16" height="12" rx="2" fill="#2a2a2d" transform="rotate(30 10 114)"/><rect x="14" y="0" width="12" height="7" rx="2" fill="#8e8e93"/></svg>
+            </div>
+            <div class="tt__led mono" id="led"><i></i><span>33⅓</span></div>
+            <div class="tt__controls">
+              <button type="button" class="tt__btn" data-rpm="33" aria-pressed="true">33</button>
+              <button type="button" class="tt__btn" data-rpm="45" aria-pressed="false">45</button>
+              <button type="button" class="tt__btn" id="sound" aria-pressed="false" data-i18n="pl_sound">son</button>
+              <button type="button" class="tt__btn tt__btn--play" id="play" aria-label="Play">▶</button>
+            </div>
+          </div>
+          <div class="tt__now" id="now"><span class="mono" data-i18n="pl_idle_k">En attente…</span><h3 data-i18n="pl_idle_t">Silence radio.</h3><p data-i18n="pl_idle_p">Pose le bras sur le disque pour écouter ma méthode.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- L'ATELIER -->
+    <section class="section atelier-sec" id="atelier" data-tone="dark" aria-label="L'atelier">
+      <div class="section-head">
+        <span class="mono" data-i18n="at_k">(05) — L'atelier</span>
+        <h2 data-lines data-i18n="at_h"><span class="line-reveal"><span>À toi de jouer</span></span></h2>
+        <span class="mono" data-i18n="at_r">Compose ton affiche<br>dans mon style</span>
+      </div>
+      <div class="atelier">
+        <div class="poster-stage">
+          <div class="poster" id="poster" data-layout="a" style="--pc:#e8261c;--pi:#141212" data-cursor="Tampon">
+            <img class="poster__img" id="posterImg" src="media/lab/P1166161.jpg" alt="">
+            <div class="poster__meta mono"><span>Anaïs Albersario</span><span>Archive 24—26</span></div>
+            <div class="poster__title" id="posterTitle">Archive 24—26</div>
+            <div class="poster__stamps" id="posterStamps"></div>
+          </div>
+          <span class="hand" data-i18n="at_hint">clique sur l'affiche pour la tamponner ✶</span>
+        </div>
+        <div class="tools">
+          <div class="tool"><span class="mono" data-i18n="at_t1">01 — La photo</span><div class="tool__thumbs" id="toolImgs"></div></div>
+          <div class="tool"><span class="mono" data-i18n="at_t2">02 — La couleur</span><div class="swatches" id="toolColors"></div></div>
+          <div class="tool"><span class="mono" data-i18n="at_t3">03 — La mise en page</span><div class="layouts" id="toolLayouts"></div></div>
+          <div class="tool"><label><span class="mono" data-i18n="at_t4">04 — Le titre</span><input id="toolTitle" maxlength="26" value="Archive 24—26" autocomplete="off"></label></div>
+          <div class="tool__actions">
+            <button type="button" class="btn" id="shuffle" data-i18n="at_shuffle">Mélanger ✶</button>
+            <button type="button" class="btn" id="clearStamps" data-i18n="at_clear">Effacer les tampons</button>
+            <button type="button" class="btn btn--red" id="downloadPoster" data-i18n="at_dl">Télécharger l'affiche ↓</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORY -->
+    <section class="section memory-sec" id="pause" data-tone="dark" aria-label="Memory">
+      <div class="section-head">
+        <span class="mono" data-i18n="mm_k">(06) — Pause café</span>
+        <h2 data-lines data-i18n="mm_h"><span class="line-reveal"><span>Memory</span></span></h2>
+        <span class="mono" data-i18n="mm_r">Retrouve les paires,<br>le chrono tourne</span>
+      </div>
+      <div class="memory">
+        <div class="mem__board" id="mem"></div>
+        <aside class="mem__panel">
+          <div class="mem__stat"><b id="memMoves">0</b><span class="mono" data-i18n="mm_moves">coups</span></div>
+          <div class="mem__stat"><b id="memTime">0:00</b><span class="mono" data-i18n="mm_time">chrono</span></div>
+          <div class="mem__win" id="memWin"><span class="t" data-i18n="mm_win">Bravo !</span><p class="mono" id="memWinTxt"></p></div>
+          <button type="button" class="btn" id="memRestart" data-i18n="mm_restart">Rejouer ↺</button>
+          <span class="hand" data-i18n="mm_hint">indice : tout vient de mes dossiers</span>
+        </aside>
+      </div>
+    </section>
+
     <!-- QUI SUIS-JE -->
     <section class="section about" id="a-propos" data-tone="dark" aria-label="À propos">
       <div class="section-head">
-        <span class="mono" data-i18n="about_k">(05) — À propos</span>
+        <span class="mono" data-i18n="about_k">(07) — À propos</span>
         <h2 data-lines data-i18n="about_h"><span class="line-reveal"><span>Qui suis-je&nbsp;?</span></span></h2>
         <span class="mono" data-i18n="about_r">Fiche d'identité<br>créative</span>
       </div>
@@ -225,7 +311,7 @@
     <!-- CONTACT -->
     <section class="section contact" id="contact" data-tone="light" aria-label="Contact">
       <div class="section-head">
-        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="contact_k">(06) — Contact</span>
+        <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="contact_k">(08) — Contact</span>
         <h2 data-lines data-i18n="contact_h"><span class="line-reveal"><span>On se</span></span><span class="line-reveal"><span>rencontre&nbsp;?</span></span></h2>
         <span class="mono" style="color:rgba(251,248,241,.6)" data-i18n="contact_r">Réponse sous 24 h<br>(promis)</span>
       </div>
@@ -299,5 +385,6 @@
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/home.js"></script>
+  <script src="js/play.js"></script>
 </body>
 </html>

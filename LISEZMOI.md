@@ -16,7 +16,7 @@ Puis ouvrir http://localhost:5173
 Tout est dans **`js/data.js`** :
 - textes de chaque projet (titre, sous-titre, client, rôle, outils, contexte, missions) ;
 - liste des images de chaque projet (`blocks`) ;
-- calendrier éditorial EÏA (`EIA_CALENDAR`).
+- le feed EÏA du téléphone et des pochettes (`EIA_FEED`).
 
 Les textes de l'accueil (manifeste, certificat, contact) sont dans **`index.html`**.
 
@@ -28,6 +28,10 @@ Après une modification :
 git add -A && git commit -m "Mise à jour" && git push
 ```
 GitHub Pages republie le site en 1 à 2 minutes.
+
+## Les jeux de l'accueil
+Ticket à gratter, platine (ma méthode), atelier d'affiche et memory : tout est dans `js/play.js`.
+Les morceaux de la platine (titres + phrases) sont en haut de la fonction `turntable`.
 
 ## Version anglaise
 - Le bouton FR / EN est en haut à droite. Le choix est mémorisé, et `?lang=en` dans l'adresse force l'anglais.

@@ -43,31 +43,63 @@
     return `<figure class="fig ${tilt}">${tape}<div class="media" data-clip data-lb="${k}" data-cursor="Agrandir"><img src="${it.src}" alt="${esc(it.cap || F(p, "name"))}" loading="lazy" decoding="async"></div>${it.cap ? `<figcaption class="cap"><span>${esc(it.cap)}</span><span>${pad(k + 1)}</span></figcaption>` : ""}</figure>`;
   };
 
-  const calendar = () => {
-    const C = window.EIA_CALENDAR;
-    const dows = T("dows");
-    return `<div class="cal">${C.months.map((M) => {
-      const first = (new Date(M.y, M.m, 1).getDay() + 6) % 7;
-      const nd = new Date(M.y, M.m + 1, 0).getDate();
-      let cells = dows.map((d) => `<div class="cal__dow">${d}</div>`).join("");
-      for (let b = 0; b < first; b++) cells += `<div class="cal__day is-empty"></div>`;
-      let total = 0;
-      for (let d = 1; d <= nd; d++) {
-        const key = `${pad(d)}-${pad(M.m + 1)}`;
-        const items = C.days[key] || [];
-        total += items.length;
-        const red = C.highlight.includes(key) ? " is-redbox" : "";
-        const nt = I.lang === "en" ? (C.notes_en[key] ?? C.notes[key]) : C.notes[key];
-        const note = nt ? `<span class="cal__note" style="left:8%;bottom:-14%">${esc(nt)}</span>` : "";
-        if (!items.length) { cells += `<div class="cal__day"><span class="cal__num">${d}</span></div>`; continue; }
-        const thumbs = items.slice(0, 3).map((n) => n.startsWith("reel:")
-          ? `<video src="media/eia/${n.slice(5)}.mp4#t=0.5" muted playsinline preload="metadata"></video>`
-          : `<img src="media/eia/${n}.jpg" alt="" loading="lazy">`).join("");
-        cells += `<button type="button" class="cal__day has-post${red}" data-day="${key}" data-cursor="Ouvrir" aria-label="${d} ${capOf(M, "name")} : ${items.length} ${T("posts")}"><span class="cal__num">${d}</span><span class="cal__count">${items.length}</span><span class="cal__thumbs">${thumbs}</span>${note}</button>`;
-      }
-      const rest = (7 - ((first + nd) % 7)) % 7;
-      for (let b = 0; b < rest; b++) cells += `<div class="cal__day is-empty"></div>`;
-      return `<div class="cal__month tex"><div class="cal__mhead"><h3>${capOf(M, "name")} 26</h3>${M.note ? `<span class="hand">${esc(capOf(M, "note"))}</span>` : ""}<span class="mono">${total} ${T("posts")}</span></div><div class="cal__grid">${cells}</div></div>`;
+  /* ---------- le feed EÏA : téléphone + pochettes ---------- */
+  const FEED = window.EIA_FEED;
+  const eia = (n) => `media/eia/${n}.jpg`;
+  const ICON = {
+    multi: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h12a2 2 0 0 1 2 2v12M3 7h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
+    reel: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>`
+  };
+  const phone = () => {
+    const posts = FEED.posts.map((po, j) => {
+      const thumb = po.video ? `<video src="media/eia/${po.video}.mp4#t=0.8" muted playsinline preload="metadata"></video>` : `<img src="${eia(po.files[0])}" alt="" loading="lazy">`;
+      const ic = po.video ? ICON.reel : po.files.length > 1 ? ICON.multi : "";
+      return `<button type="button" class="ig__cell" data-post="${j}" data-cursor="Ouvrir" aria-label="${esc(capOf(po))}">${thumb}${ic ? `<span class="ig__icon">${ic}</span>` : ""}</button>`;
+    }).join("");
+    const hl = FEED.stories.map((st, j) => `<button type="button" class="ig__story" data-story="${j}" data-cursor="Ouvrir"><span class="ig__ring"><img src="${eia(st.files[0])}" alt=""></span><span>${esc(capOf(st, "label"))}</span></button>`).join("");
+    return `<div class="blk phone-wrap">
+      <div class="phone-notes">
+        <span class="note note--right" style="left:2%;top:18%"><svg viewBox="0 0 86 46" aria-hidden="true"><path d="M2 30 C26 42 56 36 80 17 M80 17 L65 15 M80 17 L74 31"/></svg>${T("ph_note1")}</span>
+        <span class="note note--right" style="left:0;top:58%"><svg viewBox="0 0 86 46" aria-hidden="true"><path d="M2 30 C26 42 56 36 80 17 M80 17 L65 15 M80 17 L74 31"/></svg>${T("ph_note2")}</span>
+      </div>
+      <div class="phone" id="phone">
+        <div class="phone__frame">
+          <span class="phone__island"></span>
+          <div class="phone__screen">
+            <div class="ig" data-lenis-prevent>
+              <div class="ig__status mono"><span>9:41</span><span>●●● ▮</span></div>
+              <div class="ig__top"><b>${esc(FEED.handle)}</b><span>•••</span></div>
+              <div class="ig__head"><span class="ig__avatar"><img src="${FEED.avatar}" alt=""></span><div class="ig__stats"><b>${FEED.posts.length}</b><span>${T("ph_posts")}</span></div><div class="ig__stats"><b>${FEED.stories.length}</b><span>${T("ph_hl")}</span></div></div>
+              <p class="ig__bio"><b>EÏA</b><br>${esc(capOf(FEED, "bio"))}</p>
+              <div class="ig__hls">${hl}</div>
+              <div class="ig__tabs"><span class="is-on">▦</span><span>▶</span><span>☺</span></div>
+              <div class="ig__grid">${posts}</div>
+            </div>
+            <div class="ig__layer ig__post" aria-hidden="true"></div>
+            <div class="ig__layer ig__storyv" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-side">
+        <span class="mono">${T("ph_side_k")}</span>
+        <p class="phone-side__big">${T("ph_side")}</p>
+        <div class="phone-side__count"><b data-count="${FEED.posts.reduce((a, po) => a + (po.files ? po.files.length : 1), 0)}">0</b><span class="mono">${T("ph_visuals")}</span></div>
+        <div class="phone-side__count"><b data-count="${FEED.stories.reduce((a, st) => a + st.files.length, 0)}">0</b><span class="mono">${T("ph_stories")}</span></div>
+      </div>
+    </div>`;
+  };
+  const strips = (kind) => {
+    const groups = kind === "stories" ? FEED.stories : FEED.posts.filter((po) => po.files && po.files.length > 1);
+    return `<div class="blk strips strips--${kind}">${groups.map((g, j) => {
+      const title = kind === "stories" ? capOf(g, "label") : capOf(g);
+      const cards = g.files.map((f, n) => {
+        const k = gallery.push({ src: eia(f), cap: `${title} — ${n + 1}/${g.files.length}` }) - 1;
+        return `<figure class="sleeve" data-lb="${k}" data-cursor="Agrandir"><img src="${eia(f)}" alt="${esc(title)} ${n + 1}" loading="lazy" draggable="false"><span class="sleeve__n mono">${pad(n + 1)}</span></figure>`;
+      }).join("");
+      return `<div class="strip">
+        <div class="strip__head"><span class="strip__date">${esc(g.date)}</span><h3 class="strip__title">${esc(title)}</h3><span class="mono">${g.files.length} ${T(kind === "stories" ? "ph_stories" : "slides")}</span></div>
+        <div class="strip__rail" data-rail data-cursor="Glisse"><div class="strip__track">${cards}<span class="strip__end hand">↩ ${T("again")}</span></div></div>
+      </div>`;
     }).join("")}</div>`;
   };
 
@@ -88,7 +120,8 @@
         const k = gallery.push({ src, cap: `${F(p, "name")}, ${T("slide")} ${j + 1}` }) - 1;
         return `<div class="deck__card" data-lb="${k}" data-cursor="Agrandir" style="top:calc(10vh + ${j * 12}px)"><img src="${src}" alt="${esc(p.name)}, slide ${j + 1}" loading="lazy"></div>`;
       }).join("")}</div>`;
-      case "calendar": return `<div class="blk">${calendar()}</div>`;
+      case "phone": return phone();
+      case "strips": return strips(b.kind);
       default: return "";
     }
   };
@@ -100,7 +133,7 @@
   document.getElementById("project").innerHTML = `
     <section class="p-hero tex" data-tone="${tone}">
       <div class="p-hero__top mono">
-        <a href="index.html#sommaire" data-label="${I.lang === "en" ? "Contents" : "Sommaire"}">${T("contents")}</a>
+        <a href="index.html#classeur" data-label="${I.lang === "en" ? "The files" : "Les dossiers"}">${T("contents")}</a>
         <span>${N("cat")}</span>
         <span>${T("file_no")}${pad(i + 1)} / ${pad(P.length)}</span>
       </div>

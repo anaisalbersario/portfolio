@@ -119,43 +119,6 @@
   });
 
   /* =======================================================
-     SOMMAIRE
-     ======================================================= */
-  const toc = $("#toc");
-  toc.innerHTML = P.map((p, i) => `
-    <li class="toc__item"><a href="${url(p)}" data-id="${p.id}" data-cursor="Ouvrir">
-      <span class="toc__n">${pad(i + 1)}</span>
-      <span class="toc__title">${esc(F(p, "title"))}</span>
-      <span class="toc__dots" aria-hidden="true"></span>
-      <span class="toc__cat">${esc(F(p, "cat"))}</span>
-      <span class="toc__p">p.${pad(i * 2 + 4)}</span>
-    </a></li>`).join("");
-  const prev = $("#tocPreview"), prevImgs = $(".imgs", prev), prevCap = $(".pcap", prev);
-  prevImgs.innerHTML = P.map((p) => `<img src="${p.thumb}" alt="" data-id="${p.id}" loading="lazy">`).join("");
-  if (App.fine) {
-    let px = 0, py = 0, cx = 0, cy = 0, rot = 0;
-    addEventListener("pointermove", (e) => { px = e.clientX; py = e.clientY; }, { passive: true });
-    (function loop() {
-      const dx = px - cx; cx += dx * 0.13; cy += (py - cy) * 0.13; rot += (dx * 0.05 - rot) * 0.1;
-      prev.style.transform = `translate3d(${cx + 40}px, ${cy - 160}px, 0) rotate(${Math.max(-10, Math.min(10, rot))}deg)`;
-      requestAnimationFrame(loop);
-    })();
-    toc.addEventListener("pointerover", (e) => {
-      const a = e.target.closest("a"); if (!a) return;
-      $$("img", prevImgs).forEach((im) => im.classList.toggle("is-on", im.dataset.id === a.dataset.id));
-      prevCap.textContent = F(byId(a.dataset.id), "blurb").split(/[.,(]/)[0].toLowerCase();
-      prev.classList.add("is-on");
-    });
-    toc.addEventListener("pointerleave", () => prev.classList.remove("is-on"));
-  }
-  toc.addEventListener("click", (e) => {
-    const a = e.target.closest("a[data-id]"); if (!a) return;
-    e.preventDefault(); e.stopPropagation();
-    prev.classList.remove("is-on");
-    openFolder(a.dataset.id, a);
-  }, true);
-
-  /* =======================================================
      LE CLASSEUR : dossiers fermés
      ======================================================= */
   const folders = $("#folders");
@@ -481,10 +444,6 @@
     const o = { v: 0 };
     gsap.to(o, { v: +b.dataset.count, duration: 1.8, ease: "power3.out", scrollTrigger: { trigger: b, start: "top 90%" }, onUpdate: () => (b.textContent = Math.round(o.v)) });
   });
-
-  // sommaire
-  gsap.from(".toc__item", { y: 40, opacity: 0, duration: 0.9, ease: "expo.out", stagger: 0.05, clearProps: "opacity,transform", scrollTrigger: { trigger: "#toc", start: "top 85%" } });
-  gsap.from(".toc__dots", { scaleX: 0, duration: 1.2, ease: "expo.out", stagger: 0.05, scrollTrigger: { trigger: "#toc", start: "top 80%" } });
 
   // classeur : les dossiers tombent sur le bureau
   ScrollTrigger.batch(".folder", {

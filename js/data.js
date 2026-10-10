@@ -225,21 +225,13 @@ window.PROJECTS = [
       missions: ["Instagram & LinkedIn editorial calendars", "Carousels, stories, Reels scripts", "FR / EN captions", "Newsletters & press releases", "EÏA × Womanizer collab", "Format watch & Instagram grid"]
     },
     blocks: [
-      { t: "title", h: "Le calendrier", p: "Tout a été pensé, produit et planifié. Clique sur un jour pour ouvrir les publications.", en: { h: "The calendar", p: "Everything was planned, produced and scheduled. Click a day to open the posts." } },
-      { t: "calendar" },
-      { t: "title", h: "Le feed", p: "Matières, gestes, lumière d'hôtel. Le texte se pose comme une note.", en: { h: "The feed", p: "Textures, gestures, hotel light. Text lands like a note." } },
-      { t: "grid", cols: 4, items: ["media/eia/post_02-07-1.jpg", "media/eia/post_02-07-2.jpg", "media/eia/post_02-07-3.jpg", "media/eia/post_02-07-4.jpg"] },
-      { t: "grid", cols: 3, offset: true, items: ["media/eia/post_02-07-5.jpg", "media/eia/post_01-08-1.jpg", "media/eia/post_03-07-1.jpg"] },
+      { t: "title", h: "Le feed, en vrai", p: "Touche une story, ouvre un post, fais glisser les carrousels. Comme sur ton téléphone.", en: { h: "The feed, for real", p: "Tap a story, open a post, swipe the carousels. Just like on your phone." } },
+      { t: "phone" },
       { t: "quote", text: "« Le temps suspend son rythme. »", by: "Carrousel Cap d'Antibes, juin 2026", en: { text: "“Time slows its pace.”", by: "Cap d'Antibes carousel, June 2026" } },
-      { t: "grid", cols: 4, items: ["media/eia/post_20-06-1.jpg", "media/eia/post_20-06-2.jpg", "media/eia/post_20-06-3.jpg", "media/eia/post_20-06-4.jpg"] },
-      { t: "title", h: "Retraite Megève", p: "Une annonce aux airs de carte postale vintage.", en: { h: "Megève retreat", p: "An announcement that looks like a vintage postcard." } },
-      { t: "grid", cols: 3, items: ["media/eia/post_04-06-1v2.jpg", "media/eia/post_04-06-2.jpg", "media/eia/post_04-06-3.jpg"] },
-      { t: "grid", cols: 2, narrow: true, items: ["media/eia/post_04-06-4.jpg", "media/eia/post_04-06-5.jpg"] },
-      { t: "title", h: "« J'ai choisi »", p: "Un format répété sur cinq lieux : ce qu'on devait faire, ce qu'on a choisi à la place.", en: { h: "“I chose”", p: "One format across five venues: what we were supposed to do, and what we chose instead." } },
-      { t: "grid", cols: 5, items: ["media/eia/post_05-07-1.jpg", "media/eia/post_05-07-2.jpg", "media/eia/post_05-07-3.jpg", "media/eia/post_05-07-4.jpg", "media/eia/post_05-07-5.jpg"] },
-      { t: "title", h: "Stories & presse", p: "Stories éditoriales, relais presse, et le guide des bonnes adresses autour du spa.", en: { h: "Stories & press", p: "Editorial stories, press coverage, and a guide to the best spots around the spa." } },
-      { t: "grid", cols: 5, items: ["media/eia/story_04-08-2.jpg", "media/eia/story_04-08-3.jpg", "media/eia/story_04-08-4.jpg", "media/eia/story_04-08-5.jpg", "media/eia/story_04-08-6.jpg"] },
-      { t: "grid", cols: 4, items: ["media/eia/story_08-07-1.jpg", "media/eia/story_08-07-2.jpg", "media/eia/story_08-07-3.jpg", "media/eia/story_08-07-4.jpg"] },
+      { t: "title", h: "Les carrousels", p: "Chaque série rangée dans sa pochette. Attrape-la et fais-la défiler.", en: { h: "The carousels", p: "Each series in its own plastic sleeve. Grab it and drag." } },
+      { t: "strips", kind: "posts" },
+      { t: "title", h: "Stories & Reels", p: "Le guide du quartier, les rituels, la lumière : format vertical.", en: { h: "Stories & Reels", p: "The neighbourhood guide, the rituals, the light: vertical format." } },
+      { t: "strips", kind: "stories" },
       { t: "grid", cols: 2, narrow: true, items: [{ video: "media/eia/reel_24-07-1.mp4" }, { video: "media/eia/reel_24-07-2.mp4" }] }
     ]
   },
@@ -399,14 +391,14 @@ window.PROJECTS = [
   {
     id: "wemissu",
     title: "Wemissu",
-    name: "WEMISSU",
-    blurb: "Une marque qui n'existe pas. Un site qui marche.",
+    name: "WEMISSU — e-shop CMS",
+    blurb: "Une vraie marque streetwear, une boutique imaginée de A à Z.",
     cat: "Web design · CMS",
     year: "2025",
-    client: "ESD, projet B2 (fictif)",
-    role: "Webdesign & intégration",
+    client: "ESD, projet CMS de 2e année (site non publié)",
+    role: "Webdesign & intégration WordPress",
     tools: "WordPress, WooCommerce, Elementor, Photoshop",
-    deliverables: "Un e-shop fonctionnel",
+    deliverables: "Un e-shop fonctionnel, en local",
     cover: "media/wemissu/f05.jpg",
     thumb: "media/wemissu/f01.jpg",
     paper: "#c3d1dc", ink: "#101820", accent: "#e8261c",
@@ -415,25 +407,25 @@ window.PROJECTS = [
       { src: "media/wemissu/f02.jpg", x: 44, y: 46, w: 50, r: 3, kind: "photo" },
       { src: "media/wemissu/f14.jpg", x: 6, y: 62, w: 32, r: -5, kind: "cut" }
     ],
-    note: { text: "panier qui fonctionne !", text_en: "working cart!", x: 66, y: 12, arrow: "down" },
-    lead: "WEMISSU, c'est une marque streetwear inventée de A à Z : une identité, un ton (« Plus qu'une marque, un mood. ») et une boutique en ligne qui tourne pour de vrai.",
+    note: { text: "le panier marche (en local) !", text_en: "the cart works (locally)!", x: 60, y: 12, arrow: "down" },
+    lead: "Pour mon projet CMS de 2e année, j'ai conçu et intégré sur WordPress une boutique en ligne pour WEMISSU, une marque streetwear qui existe déjà. Exercice d'école : le site n'a jamais été mis en ligne.",
     context: [
-      "Contrastes forts, typo bold, mise en page dynamique : l'interface parle comme la culture urbaine qu'elle vend.",
-      "Le parcours met les drops et les pièces clés en avant, jusqu'au panier et à l'espace client."
+      "Je suis partie de l'univers de la marque (« Plus qu'une marque, un mood. ») pour imaginer l'e-shop qu'elle pourrait avoir : contrastes forts, typo bold, mise en page dynamique.",
+      "Le parcours met les drops et les pièces clés en avant, jusqu'au panier et à l'espace client. Tout fonctionne, en local."
     ],
-    missions: ["Identité & ton de marque", "Arborescence & parcours d'achat", "Accueil, catégories, produit, panier, compte", "Intégration WordPress / WooCommerce"],
+    missions: ["Analyse de la marque et de son univers", "Arborescence & parcours d'achat", "Accueil, catégories, produit, panier, compte", "Intégration WordPress / WooCommerce / Elementor"],
     en: {
-      blurb: "A brand that doesn't exist. A website that works.", cat: "Web design · CMS",
-      client: "ESD, 2nd-year project (fictional)", role: "Web design & build", deliverables: "A working e-shop",
-      lead: "WEMISSU is a streetwear brand invented from scratch: an identity, a tone (“More than a brand, a mood.”) and an online shop that actually works.",
+      name: "WEMISSU — CMS e-shop", blurb: "A real streetwear brand, an online shop imagined from scratch.",
+      client: "ESD, 2nd-year CMS project (never published)", role: "Web design & WordPress build", deliverables: "A working e-shop, running locally",
+      lead: "For my 2nd-year CMS project, I designed and built a WordPress online shop for WEMISSU, an existing streetwear brand. A school exercise: the site was never published.",
       context: [
-        "Strong contrasts, bold type, dynamic layouts: the interface speaks like the street culture it sells.",
-        "The journey puts drops and key pieces first, all the way to the cart and the customer account."
+        "I started from the brand's world (“More than a brand, a mood.”) to imagine the e-shop it could have: strong contrasts, bold type, dynamic layouts.",
+        "The journey puts drops and key pieces first, all the way to the cart and the customer account. Everything works, locally."
       ],
-      missions: ["Brand identity & tone", "Site map & purchase journey", "Home, categories, product, cart, account", "WordPress / WooCommerce build"]
+      missions: ["Brand & universe analysis", "Site map & purchase journey", "Home, categories, product, cart, account", "WordPress / WooCommerce / Elementor build"]
     },
     blocks: [
-      { t: "video", src: "media/wemissu/wemissu.mp4", poster: "media/wemissu/f01.jpg", cap: "Le parcours complet, en capture", cap_en: "The full journey, screen-recorded" },
+      { t: "video", src: "media/wemissu/wemissu.mp4", poster: "media/wemissu/f01.jpg", cap: "Le parcours complet, filmé en local", cap_en: "The full journey, screen-recorded locally" },
       { t: "grid", cols: 2, items: ["media/wemissu/f01.jpg", "media/wemissu/f02.jpg"] },
       { t: "grid", cols: 2, items: ["media/wemissu/f06.jpg", "media/wemissu/f08.jpg"] },
       { t: "grid", cols: 2, items: ["media/wemissu/f13.jpg", "media/wemissu/f14.jpg"] }
@@ -541,32 +533,32 @@ window.POSTERS = [
   { src: "media/affiches/big-ben.jpg", t: "Big Ben", y: "2025" }
 ];
 
-/* Calendrier EÏA : publications par date (jj-mm) */
-window.EIA_CALENDAR = {
-  months: [
-    { y: 2026, m: 5, name: "Juin", name_en: "June", note: "lancement Megève !", note_en: "Megève launch!" },
-    { y: 2026, m: 6, name: "Juillet", name_en: "July", note: "le mois le plus chargé", note_en: "busiest month" },
-    { y: 2026, m: 7, name: "Août", name_en: "August", note: "" }
+/* Le feed EÏA (téléphone + pochettes)
+   posts : du plus récent au plus ancien. files = les slides du carrousel. */
+window.EIA_FEED = {
+  handle: "EÏA",
+  avatar: "media/eia/story_08-07-5.jpg",
+  bio: "Spa holistique · Créateurs de protocoles pour les marques",
+  bio_en: "Holistic spa · Wellness protocols for brands",
+  posts: [
+    { date: "01.08", files: ["post_01-08-1"], cap: "Come as you are, leave a little lighter.", cap_en: "Come as you are, leave a little lighter." },
+    { date: "29.07", files: ["post_29-07-1", "post_29-07-2"], cap: "The EÏA Guide — Alignment is the new glow", cap_en: "The EÏA Guide — Alignment is the new glow" },
+    { date: "24.07", video: "reel_24-07-1", cap: "Reel — le rituel en mouvement", cap_en: "Reel — the ritual in motion" },
+    { date: "22.07", files: ["post_22-07-1"], cap: "La récompense après le travail", cap_en: "The reward after work" },
+    { date: "09.07", files: ["post_09-07-1", "post_09-07-2"], cap: "Carte postale d'un spa", cap_en: "Postcard from a spa" },
+    { date: "08.07", files: ["story_08-07-1", "story_08-07-2", "story_08-07-3", "story_08-07-4", "story_08-07-5"], cap: "Revue de presse", cap_en: "Press review" },
+    { date: "05.07", files: ["post_05-07-1", "post_05-07-2", "post_05-07-3", "post_05-07-4", "post_05-07-5"], cap: "« J'ai choisi »", cap_en: "“I chose”" },
+    { date: "03.07", files: ["post_03-07-1", "post_03-07-2", "post_03-07-3"], cap: "EÏA × Womanizer — Kundalini Bliss", cap_en: "EÏA × Womanizer — Kundalini Bliss" },
+    { date: "02.07", files: ["post_02-07-1", "post_02-07-2", "post_02-07-3", "post_02-07-4", "post_02-07-5"], cap: "Au spa by EÏA de l'Hôtel Hana", cap_en: "At the spa by EÏA, Hôtel Hana" },
+    { date: "24.07", video: "reel_24-07-2", cap: "Reel — gestes & matières", cap_en: "Reel — gestures & textures" },
+    { date: "20.06", files: ["post_20-06-1", "post_20-06-2", "post_20-06-3", "post_20-06-4"], cap: "Cap d'Antibes Beach Hotel", cap_en: "Cap d'Antibes Beach Hotel" },
+    { date: "04.06", files: ["post_04-06-1v2", "post_04-06-1", "post_04-06-2", "post_04-06-3", "post_04-06-4", "post_04-06-5"], cap: "Retraite Megève", cap_en: "Megève retreat" }
   ],
-  days: {
-    "04-06": ["post_04-06-1v2", "post_04-06-1", "post_04-06-2", "post_04-06-3", "post_04-06-4", "post_04-06-5"],
-    "20-06": ["post_20-06-1", "post_20-06-2", "post_20-06-3", "post_20-06-4"],
-    "02-07": ["post_02-07-1", "post_02-07-2", "post_02-07-3", "post_02-07-4", "post_02-07-5"],
-    "03-07": ["post_03-07-1", "post_03-07-2", "post_03-07-3"],
-    "05-07": ["post_05-07-1", "post_05-07-2", "post_05-07-3", "post_05-07-4", "post_05-07-5"],
-    "06-07": ["story_06-07-2", "story_06-07-3"],
-    "07-07": ["story_07-07-2", "story_07-07-3"],
-    "08-07": ["story_08-07-1", "story_08-07-2", "story_08-07-3", "story_08-07-4", "story_08-07-5"],
-    "09-07": ["post_09-07-1", "post_09-07-2"],
-    "10-07": ["story_10-07-2", "story_10-07-3"],
-    "22-07": ["post_22-07-1"],
-    "24-07": ["reel:reel_24-07-1", "reel:reel_24-07-2"],
-    "29-07": ["post_29-07-1", "post_29-07-2"],
-    "01-08": ["post_01-08-1"],
-    "04-08": ["story_04-08-2", "story_04-08-3", "story_04-08-4", "story_04-08-5", "story_04-08-6", "story_04-08-7"],
-    "08-08": ["story_08-08-2", "story_08-08-3"]
-  },
-  highlight: ["03-07", "04-06"],
-  notes: { "03-07": "× Womanizer", "08-07": "presse" },
-  notes_en: { "08-07": "press" }
+  stories: [
+    { label: "Guide", files: ["story_04-08-2", "story_04-08-3", "story_04-08-4", "story_04-08-5", "story_04-08-6", "story_04-08-7"], date: "04.08" },
+    { label: "60 min", files: ["story_08-08-2", "story_08-08-3"], date: "08.08" },
+    { label: "Lumière", label_en: "Light", files: ["story_10-07-2", "story_10-07-3"], date: "10.07" },
+    { label: "Rituel", label_en: "Ritual", files: ["story_07-07-2", "story_07-07-3"], date: "07.07" },
+    { label: "Bains", label_en: "Baths", files: ["story_06-07-2", "story_06-07-3"], date: "06.07" }
+  ]
 };
