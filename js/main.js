@@ -66,7 +66,7 @@
     if (!el) return;
     if (!hasGsap || reduced) { el.style.opacity = 1; return; }
     const tl = gsap.timeline({ paused: !!opts.trigger, delay: opts.delay || 0 });
-    tl.fromTo(el, { scale: 2.6, opacity: 0, rotation: -25 }, { scale: 1, opacity: opts.opacity || 0.92, rotation: 0, duration: 0.42, ease: "power4.in" })
+    tl.fromTo(el, { scale: 1.8, opacity: 0, rotation: -25 }, { scale: 1, opacity: opts.opacity || 0.92, rotation: 0, duration: 0.42, ease: "power4.in" })
       .to(el, { scale: 1.06, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out" });
     if (opts.shake) tl.fromTo(opts.shake, { x: -3 }, { x: 0, duration: 0.35, ease: "elastic.out(1, 0.3)" }, 0.42);
     if (opts.trigger) ScrollTrigger.create({ trigger: opts.trigger, start: opts.start || "top 75%", once: true, onEnter: () => tl.play() });
